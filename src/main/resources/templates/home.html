@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Edux</title>
 </head>
 <body>
-<h1>Welcome to Edux</h1>
+<h1 th:text="'Hello, ' + ${username} + '! Welcome to Edux'"></h1>
 </body>
 </html>
