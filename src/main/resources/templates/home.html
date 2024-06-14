@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -9,42 +9,7 @@
     <title>Edux</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-graduation-cap"></i>Edux</a>
-            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a aria-current="page" class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Courses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                <div class="mode-switch">
-                    <button class="btn btn-sm btn-default text-secondary" id="dark" title="Use dark mode">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                    <button class="btn btn-sm btn-default text-secondary" id="light" title="Use light mode">
-                        <i class="fa-solid fa-sun"></i>
-                    </button>
-                    <button class="btn btn-sm btn-default text-secondary" id="system" title="Use system preferred mode">
-                        <i class="fa-solid fa-display"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+<div th:replace="header :: header"></div>
 <section class="px-4 py-5 my-5 text-center">
     <img alt="" class="d-block border mx-auto mb-4" height="200" src="assets/images/hero.jpg">
     <h1 class="display-5 fw-bold">Everyone deserves the best education</h1>
@@ -279,51 +244,7 @@
         </div>
     </div>
 </section>
-<footer class="text-center text-lg-start">
-    <section>
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold">Contact</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto bg-secondary" style="width: 60px; height: 2px"/>
-                    <p><i class="fa-solid fa-home mr-3"></i>Warsaw, Poland</p>
-                    <p><a href="mailto:info@edux.com"><i class="fa-solid fa-envelope me-1"></i>info@edux.com</a></p>
-                    <p><a href="tel:+123456789"><i class="fa-solid fa-phone me-1"></i>123-456-789</a></p>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold">Sitemap</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto bg-secondary" style="width: 60px; height: 2px"/>
-                    <p><a href="#features">Our features</a></p>
-                    <p><a href="#about">About us</a></p>
-                    <p><a href="#whyUs">Why us</a></p>
-                    <p><a href="#statistics">Our statistics</a></p>
-                    <p><a href="#testimonials">Testimonials</a></p>
-                    <p><a href="#bestCourses">Best Courses</a></p>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold">Explore</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto bg-secondary" style="width: 60px; height: 2px"/>
-                    <p><a href="#">Home</a></p>
-                    <p><a href="#">Courses</a></p>
-                    <p><a href="#">Contact</a></p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h5 class="text-uppercase mb-4">Subscribe</h5>
-                    <div class="form-outline form-white mb-4">
-                        <label class="form-label">
-                            <input class="form-control" placeholder="Email address" type="email"/>
-                        </label>
-                        <p class="text-muted">Subscribe to our mailing list and get updates to your email inbox.</p>
-                    </div>
-                    <button class="btn btn-primary btn-block" type="submit">Subscribe</button>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="text-center p-3">
-        © 2024 Copyright: Edux
-    </div>
-</footer>
+<div th:replace="footer :: footer"></div>
 
 <script src="assets/js/color-mode.js"></script>
 
