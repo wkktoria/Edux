@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -66,7 +66,7 @@
                 <p>We maintain the safest environment for both teachers and students by sanitizing the schools daily.
                     Enough
                     security is in place with the help of dedicated security team and cameras inside the campus.</p>
-                <a class="btn btn-primary">Contact us</a>
+                <a class="btn btn-primary" th:href="@{/contact}">Contact us</a>
             </div>
         </div>
     </div>
