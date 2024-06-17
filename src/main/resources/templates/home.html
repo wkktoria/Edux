@@ -9,7 +9,7 @@
     <title>Edux</title>
 </head>
 <body>
-<div th:replace="header :: header"></div>
+<div th:replace="~{header :: header}"></div>
 <section class="px-4 py-5 my-5 text-center">
     <img alt="" class="d-block border mx-auto mb-4" height="200" src="assets/images/hero.jpg">
     <h1 class="display-5 fw-bold">Everyone deserves the best education</h1>
@@ -241,7 +241,7 @@
         </div>
     </div>
 </section>
-<div th:replace="footer :: footer"></div>
+<div th:replace="~{footer :: footer}"></div>
 
 <script src="assets/js/color-mode.js"></script>
 
