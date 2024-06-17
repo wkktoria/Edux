@@ -1,4 +1,4 @@
-package io.github.wkktoria.edux;
+package io.github.wkktoria.edux.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
