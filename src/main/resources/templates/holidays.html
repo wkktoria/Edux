@@ -14,7 +14,7 @@
     <h2>Holidays</h2>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col" th:if="${festival} == true">
                 <i class=""></i>
                 <h3>Festival Holidays</h3>
                 <ul class="list-group">
@@ -25,7 +25,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col">
+            <div class="col" th:if="${federal} == true">
                 <h3>Federal Holidays</h3>
                 <ul class="list-group">
                     <li class="list-group-item" th:each="holiday : ${FEDERAL}">
