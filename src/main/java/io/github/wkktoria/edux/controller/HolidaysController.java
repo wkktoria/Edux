@@ -4,7 +4,7 @@ import io.github.wkktoria.edux.model.Holiday;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +13,20 @@ import java.util.stream.Collectors;
 @Controller
 class HolidaysController {
     @GetMapping("/holidays")
-    String displayHolidays(@RequestParam(required = false) boolean festival,
-                           @RequestParam(required = false) boolean federal,
-                           Model model) {
-        model.addAttribute("festival", festival);
-        model.addAttribute("federal", federal);
+    String displayHolidays() {
+        return "redirect:/holidays/all";
+    }
+
+    @GetMapping("/holidays/{display}")
+    String displayHolidays(@PathVariable String display, Model model) {
+        if (display != null && display.equalsIgnoreCase("all")) {
+            model.addAttribute("festival", true);
+            model.addAttribute("federal", true);
+        } else if (display != null && display.equalsIgnoreCase("festival")) {
+            model.addAttribute("festival", true);
+        } else if (display != null && display.equalsIgnoreCase("federal")) {
+            model.addAttribute("federal", true);
+        }
 
         List<Holiday> holidays = Arrays.asList(
                 new Holiday("Jan 1", "New Year's Day", Holiday.Type.FESTIVAL),
