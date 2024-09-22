@@ -2,12 +2,15 @@ package io.github.wkktoria.edux.controller;
 
 import io.github.wkktoria.edux.model.Contact;
 import io.github.wkktoria.edux.service.ContactService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -20,13 +23,18 @@ class ContactController {
     }
 
     @RequestMapping("/contact")
-    String displayContactPage() {
+    String displayContactPage(Model model) {
+        model.addAttribute("contact", new Contact());
         return "contact.html";
     }
 
     @RequestMapping(value = "/saveMessage", method = RequestMethod.POST)
-    ModelAndView saveMessage(Contact contact) {
+    String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors errors) {
+        if (errors.hasErrors()) {
+            log.error("Contact form validation failed due to: {}", errors.getAllErrors());
+            return "contact.html";
+        }
         contactService.saveMessageDetails(contact);
-        return new ModelAndView("redirect:/contact");
+        return "redirect:/contact";
     }
 }
