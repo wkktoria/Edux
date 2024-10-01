@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <title>Edux :: Header</title>
+</head>
+<body>
+<header class="container">
+    <nav>
+        <ul>
+            <li><strong>Edux</strong></li>
+        </ul>
+        <ul>
+            <li sec:authorize="isAnonymous()">
+                <a href="#" th:href="@{/home}">Home</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="#" th:href="@{/courses}">Courses</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="#" th:href="@{/contact}">Contact</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="#" th:href="@{/login}">Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="#" th:href="@{/dashboard}">Dashboard</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="#" th:href="@{/logout}">Logout</a>
+            </li>
+            <li>
+                <details class="dropdown">
+                    <summary>
+                        Theme
+                    </summary>
+                    <ul dir="rtl">
+                        <li><a data-theme-switcher="auto" href="#">Auto</a></li>
+                        <li><a data-theme-switcher="light" href="#">Light</a></li>
+                        <li><a data-theme-switcher="dark" href="#">Dark</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </nav>
+</header>
+</body>
+</html>
