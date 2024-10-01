@@ -1,9 +1,11 @@
 package io.github.wkktoria.edux.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.ignoringRequestMatchers("/saveMessage"))
+        http.csrf((csrf) -> csrf
+                        .ignoringRequestMatchers("/saveMessage")
+                        .ignoringRequestMatchers(PathRequest.toH2Console())
+                )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/holidays/**").permitAll()
@@ -26,6 +31,7 @@ class SecurityConfig {
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/dashboard").authenticated()
                 )
                 .formLogin(form -> form
@@ -40,6 +46,8 @@ class SecurityConfig {
                         .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
+
+        http.headers(headersConfigurer -> headersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return http.build();
     }
