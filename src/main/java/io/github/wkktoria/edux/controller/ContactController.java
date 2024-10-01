@@ -25,14 +25,14 @@ class ContactController {
     @RequestMapping("/contact")
     String displayContactPage(Model model) {
         model.addAttribute("contact", new Contact());
-        return "contact.html";
+        return "contact";
     }
 
     @RequestMapping(value = "/saveMessage", method = RequestMethod.POST)
     String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors errors) {
         if (errors.hasErrors()) {
             log.error("Contact form validation failed due to: {}", errors.getAllErrors());
-            return "contact.html";
+            return "contact";
         }
         contactService.saveMessageDetails(contact);
         return "redirect:/contact";

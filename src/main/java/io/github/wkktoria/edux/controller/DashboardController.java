@@ -13,6 +13,6 @@ class DashboardController {
     String displayDashboard(Model model, Authentication auth) {
         model.addAttribute("username", auth.getName());
         model.addAttribute("roles", auth.getAuthorities().toString());
-        return "dashboard.html";
+        return "dashboard";
     }
 }

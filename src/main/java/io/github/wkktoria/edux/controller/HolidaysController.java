@@ -43,6 +43,6 @@ class HolidaysController {
             model.addAttribute(type.toString(), (holidays.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList())));
         }
 
-        return "holidays.html";
+        return "holidays";
     }
 }
