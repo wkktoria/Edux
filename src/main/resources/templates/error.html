@@ -1,0 +1,27 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <script async src="/assets/js/all.js"></script>
+    <title>Edux</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <section>
+        <hgroup>
+            <h1>Oops...</h1>
+            <p>Looks like you're lost.</p>
+        </hgroup>
+        <p class="pico-color-red" th:text="${'Error message: ' + errorMessage + '.'}"></p>
+        <a href="#" th:href="@{/home}">Go to Home</a>
+    </section>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
