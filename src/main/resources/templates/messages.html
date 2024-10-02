@@ -34,7 +34,8 @@
             <td th:text="${message.email}"></td>
             <td th:text="${message.subject}"></td>
             <td th:text="${message.message}"></td>
-            <td><a href="#" role="button" th:href="@{/closeMessage(id=${message.contactId})}" type="button">CLOSE</a>
+            <td><a class="pico-background-red" href="#" role="button"
+                   th:href="@{/closeMessage(id=${message.contactId})}" type="button">CLOSE</a>
             </td>
         </tr>
         </tbody>
