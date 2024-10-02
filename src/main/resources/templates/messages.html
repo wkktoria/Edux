@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <script async src="/assets/js/all.js"></script>
+    <title>Edux - Contact Messages</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1>Contact Messages</h1>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Message</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message : ${contactMessages}">
+            <td th:text="${message.name}"></td>
+            <td th:text="${message.phoneNumber}"></td>
+            <td th:text="${message.email}"></td>
+            <td th:text="${message.subject}"></td>
+            <td th:text="${message.message}"></td>
+            <td><a href="#" role="button" th:href="@{/closeMessage(id=${message.contactId})}" type="button">CLOSE</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
