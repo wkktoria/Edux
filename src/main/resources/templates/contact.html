@@ -28,9 +28,11 @@
                 <input autocomplete="name" id="name" name="name" placeholder="Your name" th:field="*{name}">
             </label>
             <label>
-                <input autocomplete="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone number"
-                       th:field="*{phoneNumber}"
+                <input aria-describedby="phone-number-helper" aria-label="Phone number" autocomplete="tel"
+                       id="phoneNumber"
+                       name="phoneNumber" placeholder="Phone number" th:field="*{phoneNumber}"
                        type="tel">
+                <small id="phone-number-helper">For example: +48123456789</small>
             </label>
             <label>
                 <input autocomplete="email" id="email" name="email" placeholder="Email address" th:field="*{email}">
