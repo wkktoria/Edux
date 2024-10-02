@@ -34,6 +34,7 @@ class SecurityConfig {
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
+                        .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

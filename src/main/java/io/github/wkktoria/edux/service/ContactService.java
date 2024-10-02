@@ -39,4 +39,15 @@ public class ContactService {
     public List<Contact> findMessagesWithOpenStatus() {
         return contactRepository.findMessagesWithStatus(EduxConstants.OPEN);
     }
+
+    public boolean updateMessageStatus(final int contactId, final String updatedBy) {
+        boolean isUpdated = false;
+        int result = contactRepository.updateMessageStatus(contactId, EduxConstants.CLOSED, updatedBy);
+
+        if (result > 0) {
+            isUpdated = true;
+        }
+
+        return isUpdated;
+    }
 }

@@ -4,11 +4,10 @@ import io.github.wkktoria.edux.model.Contact;
 import io.github.wkktoria.edux.rowmappers.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -31,11 +30,16 @@ public class ContactRepository {
 
     public List<Contact> findMessagesWithStatus(final String status) {
         String sql = "select * from contact_message where status = ?";
-        return jdbcTemplate.query(sql, new PreparedStatementSetter() {
-            @Override
-            public void setValues(final PreparedStatement ps) throws SQLException {
-                ps.setString(1, status);
-            }
-        }, new ContactRowMapper());
+        return jdbcTemplate.query(sql, ps -> ps.setString(1, status), new ContactRowMapper());
+    }
+
+    public int updateMessageStatus(final int contactId, final String status, String updatedBy) {
+        String sql = "update contact_message set status = ?, updated_by = ?, updated_at = ? where contact_id = ?";
+        return jdbcTemplate.update(sql, ps -> {
+            ps.setString(1, status);
+            ps.setString(2, updatedBy);
+            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setInt(4, contactId);
+        });
     }
 }
