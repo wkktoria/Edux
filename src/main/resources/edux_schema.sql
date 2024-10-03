@@ -1,4 +1,8 @@
-create table if not exists contact_message
+create database edux;
+
+use edux;
+
+create table if not exists `contact_message`
 (
     `contact_id`   int auto_increment primary key,
     `name`         varchar(100)  not null,
@@ -13,7 +17,7 @@ create table if not exists contact_message
     `updated_by`   varchar(50) default null
 );
 
-create table if not exists holidays
+create table if not exists `holidays`
 (
     `day`        varchar(10)  not null,
     `reason`     varchar(100) not null,
