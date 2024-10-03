@@ -17,6 +17,7 @@ class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf
                         .ignoringRequestMatchers("/saveMessage")
+                        .ignoringRequestMatchers("/public/**")
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
@@ -28,6 +29,7 @@ class SecurityConfig {
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")

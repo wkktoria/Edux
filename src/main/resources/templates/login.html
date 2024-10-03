@@ -17,10 +17,10 @@
     <form action="/login" method="post" th:action="@{/login}">
         <article th:if="${!#strings.isEmpty(message)}" th:text="${message}"></article>
         <fieldset>
-            <label>Username
+            <label>
                 <input autocomplete="username" id="username" name="username" placeholder="Username">
             </label>
-            <label>Password
+            <label>
                 <input autocomplete="current-password" id="password" name="password" placeholder="Password"
                        type="password">
             </label>
@@ -28,6 +28,7 @@
         </fieldset>
         <input type="submit" value="Login">
     </form>
+    <a href="#" th:href="@{/public/register}">New User?</a>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

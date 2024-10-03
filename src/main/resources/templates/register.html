@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <script async src="/assets/js/all.js"></script>
+    <title>Edux - Register</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1>Registration Form</h1>
+    <ul>
+        <li class="pico-color-red" th:each="error : ${#fields.errors('person.*')}" th:text="${error}"></li>
+    </ul>
+    <form action="/public/createUser" method="post" th:action="@{/public/createUser}" th:object="${person}">
+        <fieldset>
+            <label>
+                <input autocomplete="name" placeholder="Name" th:field="*{name}">
+            </label>
+            <label>
+                <input aria-describedby="phone-number-helper" aria-label="Phone number" autocomplete="tel"
+                       placeholder="Phone number"
+                       th:field="*{phoneNumber}" type="tel">
+                <small id="phone-number-helper">For example: +48123456789</small>
+            </label>
+            <label>
+                <input autocomplete="email" placeholder="Email address" th:field="*{email}">
+            </label>
+            <label>
+                <input autocomplete="email" placeholder="Confirm email address" th:field="*{confirmEmail}">
+            </label>
+            <label>
+                <input autocomplete="new-password" placeholder="Password" th:field="*{password}" type="password">
+            </label>
+            <label>
+                <input autocomplete="new-password" placeholder="Confirm password" th:field="*{confirmPassword}"
+                       type="password">
+            </label>
+        </fieldset>
+        <input class="pico-background-green" type="submit" value="Register">
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

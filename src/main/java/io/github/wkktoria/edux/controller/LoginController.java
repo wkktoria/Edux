@@ -18,6 +18,7 @@ class LoginController {
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     String displayLoginPage(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
+                            @RequestParam(value = "register", required = false) String register,
                             Model model) {
         String message = null;
 
@@ -27,6 +28,10 @@ class LoginController {
 
         if (logout != null) {
             message = "You have been logged out.";
+        }
+
+        if (register != null) {
+            message = "Your account has been registered. Login with your credentials.";
         }
 
         model.addAttribute("message", message);
