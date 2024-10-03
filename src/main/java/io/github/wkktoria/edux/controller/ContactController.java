@@ -5,7 +5,6 @@ import io.github.wkktoria.edux.service.ContactService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -52,8 +51,8 @@ class ContactController {
     }
 
     @RequestMapping(value = "/closeMessage", method = RequestMethod.GET)
-    String closeMessage(@RequestParam final int id, Authentication authentication) {
-        contactService.updateMessageStatus(id, authentication.getName());
+    String closeMessage(@RequestParam final int id) {
+        contactService.updateMessageStatus(id);
         return "redirect:/displayMessages";
     }
 }
