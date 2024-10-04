@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @FieldsValueMatch.List({
@@ -23,7 +25,7 @@ import lombok.Data;
                 message = "Email addresses do not match."
         )
 })
-public class Person {
+public class Person extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
@@ -39,7 +41,7 @@ public class Person {
     @NotBlank(message = "Email must not be blank.")
     @Email(message = "Provide a valid email address.")
     private String email;
-    
+
     @Transient
     private String confirmEmail;
 
