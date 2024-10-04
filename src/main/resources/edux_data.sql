@@ -17,3 +17,9 @@ values ('Jul 4', 'Independence Day', 'FEDERAL', CURDATE(), 'DBA');
 
 insert into `holidays` (`day`, `reason`, `type`, `created_at`, `created_by`)
 values ('Nov 11', 'Veterans Day', 'FEDERAL', CURDATE(), 'DBA');
+
+insert into `role` (`role_name`, `created_at`, `created_by`)
+values ('ADMIN', CURDATE(), 'DBA');
+
+insert into `role` (`role_name`, `created_at`, `created_by`)
+values ('STUDENT', CURDATE(), 'DBA');
