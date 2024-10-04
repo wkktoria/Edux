@@ -23,3 +23,6 @@ values ('ADMIN', CURDATE(), 'DBA');
 
 insert into `role` (`role_name`, `created_at`, `created_by`)
 values ('STUDENT', CURDATE(), 'DBA');
+
+insert into `person` (`name`, `email`, `phone_number`, `password`, `role_id`, `created_at`, `created_by`)
+values ('Admin', 'admin@edux.com', '1234567890', 'adminstr0ngp@sw00rd', 1, CURDATE(), 'DBA')
