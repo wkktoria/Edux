@@ -1,4 +1,4 @@
-package io.github.wkktoria.edux;
+package io.github.wkktoria.edux.security;
 
 import io.github.wkktoria.edux.model.Person;
 import io.github.wkktoria.edux.model.Role;
@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-class EduxUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
+public class EduxUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
     private final PersonRepository personRepository;
 
     @Autowired
-    EduxUsernamePasswordAuthenticationProvider(final PersonRepository personRepository) {
+    public EduxUsernamePasswordAuthenticationProvider(final PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
