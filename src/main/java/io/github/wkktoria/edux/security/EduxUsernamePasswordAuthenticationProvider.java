@@ -46,7 +46,7 @@ public class EduxUsernamePasswordAuthenticationProvider implements Authenticatio
 
     private List<GrantedAuthority> getGrantedAuthorities(final Role role) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.toString()));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
         return grantedAuthorities;
     }
 }
