@@ -13,7 +13,7 @@ create table if not exists `contact_message`
     `status`       varchar(10)   not null,
     `created_at`   timestamp     not null,
     `created_by`   varchar(50)   not null,
-    `updated_at`   timestamp   default null,
+    `updated_at`   timestamp   null default null,
     `updated_by`   varchar(50) default null
 );
 
@@ -24,7 +24,7 @@ create table if not exists `holidays`
     `type`       varchar(20)  not null,
     `created_at` timestamp    not null,
     `created_by` varchar(50)  not null,
-    `updated_at` timestamp   default null,
+    `updated_at` timestamp   null default null,
     `updated_by` varchar(50) default null
 );
 
@@ -34,7 +34,7 @@ create table if not exists `role`
     `role_name`  varchar(25) not null,
     `created_at` timestamp   not null,
     `created_by` varchar(50) not null,
-    `updated_at` timestamp   default null,
+    `updated_at` timestamp   null default null,
     `updated_by` varchar(50) default null,
     primary key (`role_id`)
 );
@@ -48,7 +48,7 @@ create table if not exists `address`
     `zip_code`   int          not null,
     `created_at` timestamp    not null,
     `created_by` varchar(50)  not null,
-    `updated_at` timestamp    default null,
+    `updated_at` timestamp    null default null,
     `updated_by` varchar(50)  default null,
     primary key (`address_id`)
 );
@@ -64,7 +64,7 @@ create table if not exists `person`
     `address_id`   int          null,
     `created_at`   timestamp    not null,
     `created_by`   varchar(50)  not null,
-    `updated_at`   timestamp   default null,
+    `updated_at`   timestamp   null default null,
     `updated_by`   varchar(50) default null,
     primary key (`person_id`),
     foreign key (`role_id`) references role (`role_id`),
