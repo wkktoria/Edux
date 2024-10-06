@@ -37,7 +37,7 @@ public class EduxUsernamePasswordAuthenticationProvider implements Authenticatio
 
         if (person != null && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
             return new UsernamePasswordAuthenticationToken(
-                    person.getName(), null, getGrantedAuthorities(person.getRole()));
+                    email, null, getGrantedAuthorities(person.getRole()));
         } else {
             throw new BadCredentialsException("Bad credentials");
         }

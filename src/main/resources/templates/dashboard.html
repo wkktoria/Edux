@@ -19,6 +19,7 @@
         <h1 th:text="${'Welcome ' + username + '!'}"></h1>
         <p th:text="${'You logged in as: ' + roles + '.'}"></p>
     </hgroup>
+    <a href="#" th:href="@{/displayProfile}">Profile</a>
     <a href="#" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/displayMessages}">Messages</a>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

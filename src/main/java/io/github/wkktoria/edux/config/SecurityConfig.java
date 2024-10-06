@@ -28,6 +28,8 @@ class SecurityConfig {
                         .requestMatchers("/logout").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/displayProfile").authenticated()
+                        .requestMatchers("/updateProfile").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                 )
