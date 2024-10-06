@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ import java.util.List;
 @Component
 public class EduxUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
     private final PersonRepository personRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EduxUsernamePasswordAuthenticationProvider(final PersonRepository personRepository) {
+    public EduxUsernamePasswordAuthenticationProvider(final PersonRepository personRepository,
+                                                      final PasswordEncoder passwordEncoder) {
         this.personRepository = personRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -31,9 +35,9 @@ public class EduxUsernamePasswordAuthenticationProvider implements Authenticatio
         final String password = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
 
-        if (person != null && person.getPersonId() > 0 && password.equals(person.getPassword())) {
+        if (person != null && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
             return new UsernamePasswordAuthenticationToken(
-                    person.getName(), password, getGrantedAuthorities(person.getRole()));
+                    person.getName(), null, getGrantedAuthorities(person.getRole()));
         } else {
             throw new BadCredentialsException("Bad credentials");
         }

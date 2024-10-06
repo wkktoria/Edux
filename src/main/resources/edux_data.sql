@@ -26,3 +26,8 @@ values ('STUDENT', CURDATE(), 'DBA');
 
 insert into `person` (`name`, `email`, `phone_number`, `password`, `role_id`, `created_at`, `created_by`)
 values ('Admin', 'admin@edux.com', '1234567890', 'adminstr0ngp@sw00rd', 1, CURDATE(), 'DBA');
+
+delete from `person` where email='admin@edux.com';
+
+insert into `person` (`name`, `email`, `phone_number`, `password`, `role_id`, `created_at`, `created_by`)
+values ('Admin', 'admin@edux.com', '+1234567890', '$2a$12$6AQpapoZjc7LxZ7TZpLh8eKE./RlDD5IegKS0tP18LIO8nGOfjvFG', 1, CURDATE(), 'DBA');
