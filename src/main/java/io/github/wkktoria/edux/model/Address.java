@@ -28,6 +28,8 @@ public class Address extends BaseEntity {
     @Size(min = 5, message = "City must be at least 5 characters long.")
     private String city;
 
+    private String state;
+
     @NotBlank(message = "Zip code must not be blank.")
     @Pattern(regexp = "^$|[0-9]{5}", message = "Provide a valid zip code.")
     private String zipCode;

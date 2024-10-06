@@ -45,6 +45,7 @@ create table if not exists `address`
     `address1`   varchar(200) not null,
     `address2`   varchar(200) default null,
     `city`       varchar(50)  not null,
+    `state`      varchar(50)  default null,
     `zip_code`   int          not null,
     `created_at` timestamp    not null,
     `created_by` varchar(50)  not null,
