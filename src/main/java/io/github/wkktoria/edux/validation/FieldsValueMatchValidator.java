@@ -21,11 +21,7 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
         Object fieldMatchValue = new BeanWrapperImpl(o).getPropertyValue(fieldMatch);
 
         if (fieldValue != null) {
-            if (fieldValue.toString().startsWith("$2a")) {
-                return true;
-            } else {
-                return fieldValue.equals(fieldMatchValue);
-            }
+            return fieldValue.equals(fieldMatchValue);
         } else {
             return fieldMatchValue == null;
         }
