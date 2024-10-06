@@ -47,6 +47,7 @@ create table if not exists `address`
     `city`       varchar(50)  not null,
     `state`      varchar(50)  default null,
     `zip_code`   int          not null,
+    `country`    varchar(50)  not null,
     `created_at` timestamp    not null,
     `created_by` varchar(50)  not null,
     `updated_at` timestamp    null default null,
