@@ -1,0 +1,69 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
+    <title>Edux - Classes</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1>Classes Details</h1>
+    <section>
+        <dialog id="createClass">
+            <article>
+                <header>
+                    <button aria-label="Close" data-target="createClass" onclick="toggleModal(event)"
+                            rel="prev"></button>
+                    <h3>Create New Class</h3>
+                </header>
+                <form action="#" method="post" th:action="@{/admin/addNewClass}" th:object="${eduxClass}">
+                    <fieldset>
+                        <label class="required-field" for="className">Class Name:</label>
+                        <input id="className" name="className" placeholder="Enter class name"
+                               required
+                               th:field="*{name}">
+                    </fieldset>
+                    <button class="pico-background-green" type="submit">Submit</button>
+                </form>
+            </article>
+        </dialog>
+        <div class="overflow-auto">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">Class ID</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="eduxClass : ${eduxClasses}">
+                    <td th:text="${eduxClass.classId}"></td>
+                    <td th:text="${eduxClass.name}"></td>
+                    <td><a class="pico-background-amber" href="#" role="button"
+                           th:href="@{/admin/displayStudents(classId=${eduxClass.classId})}"
+                           type="button">VIEW</a></td>
+                    <td><a class="pico-background-red" href="#" role="button"
+                           th:href="@{/admin/deleteClass(id=${eduxClass.classId})}"
+                           type="button">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="pico-background-green" data-target="createClass" onclick="toggleModal(event)">Add Class</button>
+    </section>
+    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
+<script src="/assets/js/modal.js"></script>
+</body>
+</html>

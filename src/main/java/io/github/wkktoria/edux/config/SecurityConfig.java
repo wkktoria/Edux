@@ -32,6 +32,7 @@ class SecurityConfig {
                         .requestMatchers("/updateProfile").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

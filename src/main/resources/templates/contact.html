@@ -21,7 +21,6 @@
     <ul>
         <li class="pico-color-red" th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></li>
     </ul>
-    <!--/*@thymesVar id="contact" type="io.github.wkktoria.edux.model.Contact"*/-->
     <form action="/saveMessage" method="post" th:action="@{/saveMessage}" th:object="${contact}">
         <fieldset>
             <label>

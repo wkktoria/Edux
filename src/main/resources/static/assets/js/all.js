@@ -7,3 +7,4 @@ const includeJs = (path) => {
 }
 
 includeJs("/assets/js/theme-switcher.js");
+includeJs("/assets/js/modal.js");

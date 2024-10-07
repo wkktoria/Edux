@@ -10,7 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
           rel="stylesheet">
     <link href="/assets/css/main.css" rel="stylesheet">
-    <script async src="/assets/js/all.js"></script>
     <title>Edux - Profile</title>
 </head>
 <body>
@@ -20,13 +19,12 @@
     <ul>
         <li class="pico-color-red" th:each="error : ${#fields.errors('profile.*')}" th:text="${error}"></li>
     </ul>
-    <!--/*@thymesVar id="profile" type="io.github.wkktoria.edux.model.Profile"*/-->
     <form action="#" method="post" th:action="@{/updateProfile}" th:object="${profile}">
         <fieldset>
             <legend>Personal Details</legend>
             <label class="required-field" for="name">Name:</label>
             <input autocomplete="name" id="name" name="name" th:field="*{name}">
-            <label class="required-field" for="phoneNumber">Phone number:</label>
+            <label class="required-field" for="phoneNumber">Phone Number:</label>
             <input autocomplete="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}">
             <label class="required-field" for="email">Email:</label>
             <input autocomplete="email" id="email" name="email" th:field="*{email}">
@@ -46,12 +44,14 @@
             <label class="required-field" for="country">Country:</label>
             <input autocomplete="country-name" id="country" name="country" th:field="*{country}">
         </fieldset>
-        <input type="submit" value="Update Profile">
+        <input class="pico-background-green" type="submit" value="Update Profile">
         <a th:href="@{/dashboard}">
             <button th:formaction="@{/dashboard}">Back to Dashboard</button>
         </a>
     </form>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
 </body>
 </html>
