@@ -7,94 +7,99 @@
           rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
           rel="stylesheet">
-    <script async src="/assets/js/all.js"></script>
-    <title>Edux - About</title>
+    <title>About | Edux</title>
 </head>
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
 <main class="container">
+    <hgroup>
+        <h1>About Us</h1>
+        <p>Get to Know Us Better</p>
+    </hgroup>
     <section>
         <hgroup>
             <h2>Our Team</h2>
-            <p>Meet our teachers</p>
+            <p>Meet Our Teachers</p>
         </hgroup>
-        <article>
-            <header>
-                <h3>Lesa Castilla</h3>
-            </header>
-            <p>Lesa is dedicated to fostering a positive learning environment that encourages student engagement and
-                academic growth.</p>
-            <ul role="group">
-                <li>
-                    <a href="#">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="#">X</a>
-                </li>
-                <li>
-                    <a href="#">Google+</a>
-                </li>
-            </ul>
-        </article>
-        <article>
-            <header>
-                <h3>Reginald Corner</h3>
-            </header>
-            <p>With a strong commitment to educational excellence, Reginald employs diverse instructional strategies
-                tailored to meet the varied needs of students.</p>
-            <ul role="group">
-                <li>
-                    <a href="#">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="#">X</a>
-                </li>
-                <li>
-                    <a href="#">Google+</a>
-                </li>
-            </ul>
-        </article>
-        <article>
-            <header>
-                <h3>Dave Scouller</h3>
-            </header>
-            <p>By promoting critical thinking and collaboration, Dave aims to inspire a lifelong love of learning
-                in each student.</p>
-            <ul role="group">
-                <li>
-                    <a href="#">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="#">X</a>
-                </li>
-                <li>
-                    <a href="#">Google+</a>
-                </li>
-            </ul>
-        </article>
-        <article>
-            <header>
-                <h3>Nikita Kristof</h3>
-            </header>
-            <p>A dedicated educator, deeply committed to fostering a love for learning, strives to inspire students
-                through innovative teaching methods and a supportive classroom environment.</p>
-            <ul role="group">
-                <li>
-                    <a href="#">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="#">X</a>
-                </li>
-                <li>
-                    <a href="#">Google+</a>
-                </li>
-            </ul>
-        </article>
+        <details>
+            <summary role="button">Lesa Castilla</summary>
+            <article>
+                <p>Lesa is dedicated to fostering a positive learning environment that encourages student engagement
+                    and
+                    academic growth.</p>
+                <div role="group">
+                    <a href="#">
+                        <button class="pico-background-azure-400">LinkedIn</button>
+                    </a>
+                    <a href="#">
+                        <button class="contrast">X</button>
+                    </a>
+                    <a href="#">
+                        <button class="pico-background-red-450">Google+</button>
+                    </a>
+                </div>
+            </article>
+        </details>
+        <details>
+            <summary role="button">Reginald Corner</summary>
+            <article>
+                <p>With a strong commitment to educational excellence, Reginald employs diverse instructional
+                    strategies
+                    tailored to meet the varied needs of students.</p>
+                <div role="group">
+                    <a href="#">
+                        <button class="pico-background-azure-400">LinkedIn</button>
+                    </a>
+                    <a href="#">
+                        <button class="contrast">X</button>
+                    </a>
+                    <a href="#">
+                        <button class="pico-background-red-450">Google+</button>
+                    </a>
+                </div>
+            </article>
+        </details>
+        <details>
+            <summary role="button">Dave Scouller</summary>
+            <article>
+                <p>By promoting critical thinking and collaboration, Dave aims to inspire a lifelong love of learning
+                    in each student.</p>
+                <div role="group">
+                    <a href="#">
+                        <button class="pico-background-azure-400">LinkedIn</button>
+                    </a>
+                    <a href="#">
+                        <button class="contrast">X</button>
+                    </a>
+                    <a href="#">
+                        <button class="pico-background-red-450">Google+</button>
+                    </a>
+                </div>
+            </article>
+        </details>
+        <details>
+            <summary role="button">Nikita Kristof</summary>
+            <article>
+                <p>A dedicated educator, deeply committed to fostering a love for learning, strives to inspire students
+                    through innovative teaching methods and a supportive classroom environment.</p>
+                <div role="group">
+                    <a href="#">
+                        <button class="pico-background-azure-400">LinkedIn</button>
+                    </a>
+                    <a href="#">
+                        <button class="contrast">X</button>
+                    </a>
+                    <a href="#">
+                        <button class="pico-background-red-450">Google+</button>
+                    </a>
+                </div>
+            </article>
+        </details>
     </section>
     <section>
         <hgroup>
             <h2>Our Environment</h2>
-            <p>Clean and safe environment</p>
+            <p>Clean and Safe Environment</p>
         </hgroup>
         <p>We maintain the safest environment for both teachers and students by sanitizing the school daily. Enough
             security is in place with the help of dedicated security team and cameras inside the campus.</p>
@@ -102,5 +107,7 @@
     </section>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
 </body>
 </html>
