@@ -20,21 +20,18 @@ class LoginController {
                             @RequestParam(value = "logout", required = false) String logout,
                             @RequestParam(value = "register", required = false) String register,
                             Model model) {
-        String message = null;
+        String message;
 
         if (error != null) {
             message = "Username or password is incorrect.";
-        }
-
-        if (logout != null) {
+            model.addAttribute("errorMessage", message);
+        } else if (logout != null) {
             message = "You have been logged out.";
-        }
-
-        if (register != null) {
+            model.addAttribute("message", message);
+        } else if (register != null) {
             message = "Your account has been registered. Login with your credentials.";
+            model.addAttribute("message", message);
         }
-
-        model.addAttribute("message", message);
 
         return "login";
     }

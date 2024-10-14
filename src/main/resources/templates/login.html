@@ -7,7 +7,6 @@
           rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
           rel="stylesheet">
-    <script async src="/assets/js/all.js"></script>
     <title>Edux - Login</title>
 </head>
 <body>
@@ -15,7 +14,9 @@
 <main class="container">
     <h1>Login</h1>
     <form action="/login" method="post" th:action="@{/login}">
-        <article th:if="${!#strings.isEmpty(message)}" th:text="${message}"></article>
+        <article class="pico-background-green" th:if="${!#strings.isEmpty(message)}" th:text="${message}"></article>
+        <article class="pico-background-red" th:if="${!#strings.isEmpty(errorMessage)}"
+                 th:text="${errorMessage}"></article>
         <fieldset>
             <label>
                 <input aria-describedby="username-helper" aria-label="Username" autocomplete="username" id="username"
@@ -29,10 +30,12 @@
             </label>
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
         </fieldset>
-        <input class="pico-background-green" type="submit" value="Login">
+        <input type="submit" value="Login">
     </form>
     <a href="#" th:href="@{/public/register}">New User?</a>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
 </body>
 </html>
