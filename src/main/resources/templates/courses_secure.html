@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
+    <title>Edux - Courses</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <h1>Courses Details</h1>
+    <section>
+        <dialog id="addCourse">
+            <article>
+                <header>
+                    <button aria-label="Close" data-target="addCourse" onclick="toggleModal(event)"
+                            rel="prev"></button>
+                    <h3>Add New Course</h3>
+                </header>
+                <form action="#" method="post" th:action="@{/admin/addNewCourse}" th:object="${course}">
+                    <fieldset>
+                        <label class="required-field" for="courseName">Course Name:</label>
+                        <input id="courseName" name="courseName" placeholder="Enter course name"
+                               required
+                               th:field="*{name}">
+                        <label class="required-field" for="fees">Fees:</label>
+                        <input id="fees" name="fees" placeholder="Enter fees"
+                               required
+                               th:field="*{fees}">
+                    </fieldset>
+                    <button class="pico-background-green" type="submit">Submit</button>
+                </form>
+            </article>
+        </dialog>
+        <div class="overflow-auto">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">Course ID</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Fees</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseId}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.fees}"></td>
+                    <td><a class="pico-background-amber" href="#" role="button"
+                           th:href="@{/admin/viewStudents(id=${course.courseId})}"
+                           type="button">VIEW</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="pico-background-green" data-target="addCourse" onclick="toggleModal(event)">Add Course</button>
+    </section>
+    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
+<script src="/assets/js/modal.js"></script>
+</body>
+</html>

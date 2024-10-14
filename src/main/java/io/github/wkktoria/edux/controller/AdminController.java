@@ -1,7 +1,9 @@
 package io.github.wkktoria.edux.controller;
 
+import io.github.wkktoria.edux.model.Course;
 import io.github.wkktoria.edux.model.EduxClass;
 import io.github.wkktoria.edux.model.Person;
+import io.github.wkktoria.edux.repository.CoursesRepository;
 import io.github.wkktoria.edux.repository.EduxClassRepository;
 import io.github.wkktoria.edux.repository.PersonRepository;
 import jakarta.servlet.http.HttpSession;
@@ -21,11 +23,15 @@ import java.util.Optional;
 class AdminController {
     private final EduxClassRepository eduxClassRepository;
     private final PersonRepository personRepository;
+    private final CoursesRepository coursesRepository;
 
     @Autowired
-    AdminController(final EduxClassRepository eduxClassRepository, final PersonRepository personRepository) {
+    AdminController(final EduxClassRepository eduxClassRepository,
+                    final PersonRepository personRepository,
+                    final CoursesRepository coursesRepository) {
         this.eduxClassRepository = eduxClassRepository;
         this.personRepository = personRepository;
+        this.coursesRepository = coursesRepository;
     }
 
     @RequestMapping("/displayClasses")
@@ -61,7 +67,7 @@ class AdminController {
 
     @RequestMapping("/displayStudents")
     ModelAndView displayStudents(Model model, @RequestParam int classId, HttpSession session,
-                                 @RequestParam(value = "error", required = false) String error) {
+                                 @RequestParam(required = false) String error) {
         ModelAndView modelAndView = new ModelAndView("students");
         Optional<EduxClass> eduxClass = eduxClassRepository.findById(classId);
         modelAndView.addObject("eduxClass", eduxClass.get());
@@ -71,7 +77,7 @@ class AdminController {
         String message;
         if (error != null) {
             message = "Invalid email address entered.";
-            modelAndView.addObject("message", message);
+            modelAndView.addObject("errorMessage", message);
         }
 
         return modelAndView;
@@ -107,5 +113,76 @@ class AdminController {
 
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
         return modelAndView;
+    }
+
+    @GetMapping("/displayCourses")
+    ModelAndView displayCourses(Model model) {
+        List<Course> courses = coursesRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView("courses_secure");
+        modelAndView.addObject("courses", courses);
+        modelAndView.addObject("course", new Course());
+        return modelAndView;
+    }
+
+    @PostMapping("/addNewCourse")
+    ModelAndView addNewStudent(Model model, @ModelAttribute("course") Course course) {
+        ModelAndView modelAndView = new ModelAndView();
+        coursesRepository.save(course);
+        modelAndView.setViewName("redirect:/admin/displayCourses");
+        return modelAndView;
+    }
+
+    @GetMapping("/viewStudents")
+    ModelAndView viewStudents(Model model, @RequestParam final int id,
+                              HttpSession session,
+                              @RequestParam(value = "error", required = false) String error) {
+        ModelAndView modelAndView = new ModelAndView("course_students");
+        Optional<Course> course = coursesRepository.findById(id);
+        modelAndView.addObject("course", course.get());
+        modelAndView.addObject("person", new Person());
+        session.setAttribute("course", course.get());
+
+        String message;
+        if (error != null) {
+            message = "Invalid email address entered.";
+            modelAndView.addObject("errorMessage", message);
+        }
+
+        return modelAndView;
+    }
+
+    @PostMapping("/addStudentToCourse")
+    ModelAndView addStudentToCourse(Model model, @ModelAttribute("person") Person person,
+                                    HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        Course course = (Course) session.getAttribute("course");
+        Person personEntity = personRepository.readByEmail(person.getEmail());
+
+        if (personEntity == null || !(personEntity.getPersonId() > 0)) {
+            modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId()
+                    + "&error=true");
+            return modelAndView;
+        }
+
+        personEntity.getCourses().add(course);
+        course.getPersons().add(personEntity);
+        personRepository.save(personEntity);
+        session.setAttribute("course", course);
+        modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
+        return modelAndView;
+    }
+
+    @GetMapping("/deleteStudentFromCourse")
+    ModelAndView deleteStudentFromCourse(Model model, @RequestParam final int personId,
+                                         HttpSession session) {
+        Course course = (Course) session.getAttribute("course");
+        Optional<Person> person = personRepository.findById(personId);
+        if (person.isPresent()) {
+            person.get().getCourses().remove(course);
+            course.getPersons().remove(person.get());
+            personRepository.save(person.get());
+        }
+        session.setAttribute("course", course);
+        return new ModelAndView("redirect:/admin/viewStudents?id=" + course.getCourseId());
     }
 }
