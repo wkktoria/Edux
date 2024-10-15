@@ -33,6 +33,7 @@ class SecurityConfig {
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/student/**").hasRole("STUDENT")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

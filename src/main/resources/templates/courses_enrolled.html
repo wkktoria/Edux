@@ -1,0 +1,46 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="light dark" name="color-scheme">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+          rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
+    <title>Edux - Courses</title>
+</head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="container">
+    <hgroup>
+        <h1>Enrolled Courses</h1>
+        <p th:text="${person.name}"></p>
+    </hgroup>
+    <section class="overflow-auto">
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Course ID</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Fees</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${person.courses}">
+                <td th:text="${course.courseId}"></td>
+                <td th:text="${course.name}"></td>
+                <td th:text="${course.fees}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
+    </section>
+    <!--    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>-->
+</main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script src="/assets/js/theme-switcher.js"></script>
+<script src="/assets/js/modal.js"></script>
+</body>
+</html>
