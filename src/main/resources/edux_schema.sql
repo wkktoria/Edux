@@ -99,3 +99,16 @@ CREATE TABLE IF NOT EXISTS `person_course` (
     FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`),
     PRIMARY KEY (`person_id`, `course_id`)
 );
+
+CREATE TABLE IF NOT EXISTS `course_offer` (
+    `course_id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL,
+    `description` varchar(200) NOT NULL,
+    `lessons` int NOT NULL,
+    `stars` double NOT NULL,
+    `created_at` timestamp NOT NULL,
+    `created_by` varchar(50) NOT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL,
+    `updated_by` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`course_id`)
+);

@@ -2,28 +2,29 @@ package io.github.wkktoria.edux.controller;
 
 import io.github.wkktoria.edux.model.CourseOffer;
 import io.github.wkktoria.edux.service.CourseOffersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@Slf4j
 @Controller
-class HomeController {
+class CourseOffersController {
     private final CourseOffersService courseOffersService;
 
     @Autowired
-    HomeController(final CourseOffersService courseOffersService) {
+    CourseOffersController(final CourseOffersService courseOffersService) {
         this.courseOffersService = courseOffersService;
     }
 
-    @RequestMapping(value = {"", "/", "/home"})
-    ModelAndView displayHomePage() {
-        List<CourseOffer> topCourses = courseOffersService.findTopTree();
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("topCourses", topCourses);
-
+    @GetMapping("/courses")
+    ModelAndView displayCourseOffers() {
+        List<CourseOffer> courseOffers = courseOffersService.findAll();
+        ModelAndView modelAndView = new ModelAndView("courses");
+        modelAndView.addObject("courseOffers", courseOffers);
         return modelAndView;
     }
 }

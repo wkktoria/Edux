@@ -17,65 +17,13 @@
         <p>Find the Right Course for You</p>
     </hgroup>
     <section>
-        <article>
-            <header>
-                <h3>Educational Programs</h3>
-            </header>
+        <article th:each="courseOffer : ${courseOffers}">
+            <h3 th:text="${courseOffer.name}"></h3>
             <p>
-                <span><strong>43</strong> lessons</span> |
-                <span><strong>4.9</strong> stars</span>
+                <span><strong th:text="${courseOffer.lessons}"></strong> lessons</span> |
+                <span><strong th:text="${courseOffer.stars}"></strong> stars</span>
             </p>
-            <p>Educations programmes covering core concepts of Maths, English, Science.</p>
-        </article>
-        <article>
-            <header>
-                <h3>Best Medication Classes</h3>
-            </header>
-            <p>
-                <span><strong>72</strong> lessons</span> |
-                <span><strong>4.6</strong> stars</span>
-            </p>
-            <p>Special program focusing the meditation.</p>
-        </article>
-        <article>
-            <header>
-                <h3>Games Program in a Week</h3>
-            </header>
-            <p>
-                <span><strong>14</strong> lessons</span> |
-                <span><strong>5.0</strong> stars</span>
-            </p>
-            <p>Games program encouraging the students on physical activities.</p>
-        </article>
-        <article>
-            <header>
-                <h3>Development Programs</h3>
-            </header>
-            <p>
-                <span><strong>23</strong> lessons</span> |
-                <span><strong>5.0</strong> stars</span>
-            </p>
-            <p>Special development courses for special needs students to improve their confidence.</p>
-        </article>
-        <article>
-            <header>
-                <h3>Best Music Classes</h3>
-            </header>
-            <p>
-                <span><strong>40</strong> lessons</span> |
-                <span><strong>4.6</strong> stars</span>
-            </p>
-            <p>Music dedicated programmes for the music interested students.</p>
-        </article>
-        <article>
-            <header>
-                <h3>Painting Programs</h3>
-            </header>
-            <p>
-                <span><strong>20</strong> lessons</span> |
-                <span><strong>4.8</strong> stars</span>
-            </p>
-            <p>Art and design programmes for the students to improve their drawing skills .</p>
+            <p th:text="${courseOffer.description}"></p>
         </article>
     </section>
 </main>

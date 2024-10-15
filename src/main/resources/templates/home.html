@@ -112,36 +112,16 @@
             <h2>Best Courses</h2>
             <p>Wide Variety of Courses</p>
         </hgroup>
-        <article>
-            <header>
-                <h5>Educational Programs</h5>
-            </header>
-            <p>
-                <span><strong>43</strong> lessons</span> |
-                <span><strong>4.9</strong> stars</span>
-            </p>
-            <p>Educations programmes covering core concepts of Maths, English, Science.</p>
-        </article>
-        <article>
-            <header>
-                <h5>Best Medication Classes</h5>
-            </header>
-            <p>
-                <span><strong>72</strong> lessons</span> |
-                <span><strong>4.6</strong> stars</span>
-            </p>
-            <p>Special program focusing the meditation.</p>
-        </article>
-        <article>
-            <header>
-                <h5>Games Program in a Week</h5>
-            </header>
-            <p>
-                <span><strong>14</strong> lessons</span> |
-                <span><strong>5.0</strong> stars</span>
-            </p>
-            <p>Games program encouraging the students on physical activities.</p>
-        </article>
+        <div class="grid">
+            <article th:each="topCourse : ${topCourses}">
+                <h5 th:text="${topCourse.name}"></h5>
+                <p>
+                    <span><strong th:text="${topCourse.lessons}"></strong> lessons</span> |
+                    <span><strong th:text="${topCourse.stars}"></strong> stars</span>
+                </p>
+                <p th:text="${topCourse.description}"></p>
+            </article>
+        </div>
         <a href="#" role="button" th:href="@{/courses}" type="button">Browse All Courses</a>
     </section>
     <article>
