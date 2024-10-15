@@ -16,7 +16,7 @@ class StudentController {
     @GetMapping("/displayCourses")
     ModelAndView displayCourses(Model model, HttpSession session) {
         Person person = (Person) session.getAttribute("loggedInPerson");
-        ModelAndView modelAndView = new ModelAndView("courses_enrolled");
+        ModelAndView modelAndView = new ModelAndView("student/courses");
         modelAndView.addObject("person", person);
         return modelAndView;
     }

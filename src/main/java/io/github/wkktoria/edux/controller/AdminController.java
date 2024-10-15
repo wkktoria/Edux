@@ -38,7 +38,7 @@ class AdminController {
     ModelAndView displayClasses(Model model) {
         List<EduxClass> eduxClasses = eduxClassRepository.findAll();
 
-        ModelAndView modelAndView = new ModelAndView("classes");
+        ModelAndView modelAndView = new ModelAndView("admin/classes");
         modelAndView.addObject("eduxClass", new EduxClass());
         modelAndView.addObject("eduxClasses", eduxClasses);
         return modelAndView;
@@ -48,8 +48,7 @@ class AdminController {
     ModelAndView addNewClass(Model model, @ModelAttribute("eduxClass") EduxClass eduxClass) {
         eduxClassRepository.save(eduxClass);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayClasses");
-        return modelAndView;
+        return new ModelAndView("redirect:/admin/displayClasses");
     }
 
     @RequestMapping("/deleteClass")
@@ -61,14 +60,13 @@ class AdminController {
         }
         eduxClassRepository.deleteById(id);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayClasses");
-        return modelAndView;
+        return new ModelAndView("redirect:/admin/displayClasses");
     }
 
     @RequestMapping("/displayStudents")
     ModelAndView displayStudents(Model model, @RequestParam int classId, HttpSession session,
                                  @RequestParam(required = false) String error) {
-        ModelAndView modelAndView = new ModelAndView("students");
+        ModelAndView modelAndView = new ModelAndView("admin/students");
         Optional<EduxClass> eduxClass = eduxClassRepository.findById(classId);
         modelAndView.addObject("eduxClass", eduxClass.get());
         modelAndView.addObject("person", new Person());
@@ -111,14 +109,13 @@ class AdminController {
         eduxClassRepository.save(eduxClass);
         session.setAttribute("eduxClass", eduxClass);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
-        return modelAndView;
+        return new ModelAndView("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
     }
 
     @GetMapping("/displayCourses")
     ModelAndView displayCourses(Model model) {
         List<Course> courses = coursesRepository.findAll();
-        ModelAndView modelAndView = new ModelAndView("courses_secure");
+        ModelAndView modelAndView = new ModelAndView("admin/courses");
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("course", new Course());
         return modelAndView;
@@ -136,7 +133,7 @@ class AdminController {
     ModelAndView viewStudents(Model model, @RequestParam final int id,
                               HttpSession session,
                               @RequestParam(value = "error", required = false) String error) {
-        ModelAndView modelAndView = new ModelAndView("course_students");
+        ModelAndView modelAndView = new ModelAndView("admin/course_students");
         Optional<Course> course = coursesRepository.findById(id);
         modelAndView.addObject("course", course.get());
         modelAndView.addObject("person", new Person());
