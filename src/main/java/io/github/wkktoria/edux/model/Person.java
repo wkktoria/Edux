@@ -13,6 +13,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This represents the user of the app.
+ * The better name would be USER.
+ */
 @Getter
 @Setter
 @Entity

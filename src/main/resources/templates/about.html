@@ -21,80 +21,15 @@
             <h2>Our Team</h2>
             <p>Meet Our Teachers</p>
         </hgroup>
-        <details>
-            <summary role="button">Lesa Castilla</summary>
-            <article>
-                <p>Lesa is dedicated to fostering a positive learning environment that encourages student engagement
-                    and
-                    academic growth.</p>
-                <div role="group">
-                    <a href="#">
-                        <button class="pico-background-azure-400">LinkedIn</button>
-                    </a>
-                    <a href="#">
-                        <button class="contrast">X</button>
-                    </a>
-                    <a href="#">
-                        <button class="pico-background-red-450">Google+</button>
-                    </a>
-                </div>
-            </article>
-        </details>
-        <details>
-            <summary role="button">Reginald Corner</summary>
-            <article>
-                <p>With a strong commitment to educational excellence, Reginald employs diverse instructional
-                    strategies
-                    tailored to meet the varied needs of students.</p>
-                <div role="group">
-                    <a href="#">
-                        <button class="pico-background-azure-400">LinkedIn</button>
-                    </a>
-                    <a href="#">
-                        <button class="contrast">X</button>
-                    </a>
-                    <a href="#">
-                        <button class="pico-background-red-450">Google+</button>
-                    </a>
-                </div>
-            </article>
-        </details>
-        <details>
-            <summary role="button">Dave Scouller</summary>
-            <article>
-                <p>By promoting critical thinking and collaboration, Dave aims to inspire a lifelong love of learning
-                    in each student.</p>
-                <div role="group">
-                    <a href="#">
-                        <button class="pico-background-azure-400">LinkedIn</button>
-                    </a>
-                    <a href="#">
-                        <button class="contrast">X</button>
-                    </a>
-                    <a href="#">
-                        <button class="pico-background-red-450">Google+</button>
-                    </a>
-                </div>
-            </article>
-        </details>
-        <details>
-            <summary role="button">Nikita Kristof</summary>
-            <article>
-                <p>A dedicated educator, deeply committed to fostering a love for learning, strives to inspire students
-                    through innovative teaching methods and a supportive classroom environment.</p>
-                <div role="group">
-                    <a href="#">
-                        <button class="pico-background-azure-400">LinkedIn</button>
-                    </a>
-                    <a href="#">
-                        <button class="contrast">X</button>
-                    </a>
-                    <a href="#">
-                        <button class="pico-background-red-450">Google+</button>
-                    </a>
-                </div>
-            </article>
-        </details>
+        <div class="grid">
+            <details th:each="teacher : ${teachers}">
+                <summary role="button" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></summary>
+                <article>
+                    <p th:text="${teacher.summary}"></p>
+                    <p>Email: <a href="#" th:text="${teacher.email}"></a></p>
+                </article>
+            </details>
+        </div>
     </section>
     <section>
         <hgroup>

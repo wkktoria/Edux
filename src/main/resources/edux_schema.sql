@@ -112,3 +112,16 @@ CREATE TABLE IF NOT EXISTS `course_offer` (
     `updated_by` varchar(50) DEFAULT NULL,
     PRIMARY KEY (`course_id`)
 );
+
+CREATE TABLE IF NOT EXISTS `teacher` (
+    `teacher_id` int NOT NULL AUTO_INCREMENT,
+    `first_name` varchar(25) NOT NULL,
+    `last_name` varchar(25) NOT NULL,
+    `email` varchar(50) NOT NULL,
+    `summary` varchar(250) NOT NULL,
+    `created_at` timestamp NOT NULL,
+    `created_by` varchar(50) NOT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL,
+    `updated_by` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`teacher_id`)
+);

@@ -53,3 +53,15 @@ VALUES ('Best Music Classes', 'Music dedicated programmes for the music interest
 
 INSERT INTO `course_offer` (`name`, `description`, `lessons`, `stars`, `created_at`, `created_by`)
 VALUES ('Painting Programs', 'Art and design programmes for the students to improve their drawing skills .', 20, 4.8, CURDATE(), 'DBA');
+
+INSERT INTO `teacher` (`first_name`, `last_name`, `email`, `summary`, `created_at`, `created_by`)
+VALUES ('Lesa', 'Castilla', 'lesacastilla@gmail.com', 'Lesa is dedicated to fostering a positive learning environment that encourages student engagement and academic growth.', CURDATE(), 'DBA');
+
+INSERT INTO `teacher` (`first_name`, `last_name`, `email`, `summary`, `created_at`, `created_by`)
+VALUES ('Reginald', 'Corner', 'reginaldcorner@gmail.com', 'With a strong commitment to educational excellence, Reginald employs diverse instructional strategies tailored to meet the varied needs of students.', CURDATE(), 'DBA');
+
+INSERT INTO `teacher` (`first_name`, `last_name`, `email`, `summary`, `created_at`, `created_by`)
+VALUES ('Dave', 'Scouller', 'davescouller@gmail.com', 'By promoting critical thinking and collaboration, Dave aims to inspire a lifelong love of learning in each student.', CURDATE(), 'DBA');
+
+INSERT INTO `teacher` (`first_name`, `last_name`, `email`, `summary`, `created_at`, `created_by`)
+VALUES ('Nikita', 'Kristof', 'nikitakristof@gmail.com', 'A dedicated educator, deeply committed to fostering a love for learning, strives to inspire students through innovative teaching methods and a supportive classroom environment.', CURDATE(), 'DBA');
