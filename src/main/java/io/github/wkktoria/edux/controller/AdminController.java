@@ -6,10 +6,11 @@ import io.github.wkktoria.edux.model.Person;
 import io.github.wkktoria.edux.repository.CoursesRepository;
 import io.github.wkktoria.edux.repository.EduxClassRepository;
 import io.github.wkktoria.edux.repository.PersonRepository;
+import io.github.wkktoria.edux.service.CoursesService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +26,17 @@ class AdminController {
     private final EduxClassRepository eduxClassRepository;
     private final PersonRepository personRepository;
     private final CoursesRepository coursesRepository;
+    private final CoursesService coursesService;
 
     @Autowired
     AdminController(final EduxClassRepository eduxClassRepository,
                     final PersonRepository personRepository,
-                    final CoursesRepository coursesRepository) {
+                    final CoursesRepository coursesRepository,
+                    final CoursesService coursesService) {
         this.eduxClassRepository = eduxClassRepository;
         this.personRepository = personRepository;
         this.coursesRepository = coursesRepository;
+        this.coursesService = coursesService;
     }
 
     @RequestMapping("/displayClasses")
@@ -113,13 +117,25 @@ class AdminController {
         return new ModelAndView("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
     }
 
-    @GetMapping("/displayCourses")
-    ModelAndView displayCourses(Model model) {
-        List<Course> courses = coursesRepository.findAll(
-                Sort.by("name").descending());
+    @RequestMapping("/displayCourses/page/{pageNum}")
+    ModelAndView displayCourses(Model model,
+                                @PathVariable(name = "pageNum") final int pageNum,
+                                @RequestParam("sortField") final String sortField,
+                                @RequestParam("sortDir") final String sortDir) {
+        Page<Course> coursesPage = coursesService.findAll(pageNum, sortField, sortDir);
+        List<Course> courses = coursesPage.getContent();
+
         ModelAndView modelAndView = new ModelAndView("admin/courses");
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("course", new Course());
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", coursesPage.getTotalPages());
+        model.addAttribute("totalCourses", coursesPage.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return modelAndView;
     }
 

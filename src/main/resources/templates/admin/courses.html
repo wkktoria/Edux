@@ -41,9 +41,24 @@
             <table>
                 <thead>
                 <tr>
-                    <th scope="col">Course ID</th>
-                    <th scope="col">Course Name</th>
-                    <th scope="col">Fees</th>
+                    <th scope="col">
+                        <a href="#"
+                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=courseId&sortDir=' + ${reverseSortDir}}">
+                            Course ID &#8593;&#8595;
+                        </a>
+                    </th>
+                    <th scope="col">
+                        <a href="#"
+                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                            Course Name &#8593;&#8595;
+                        </a>
+                    </th>
+                    <th scope="col">
+                        <a href="#"
+                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=fees&sortDir=' + ${reverseSortDir}}">
+                            Fees &#8593;&#8595;
+                        </a>
+                    </th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -62,6 +77,21 @@
                 </tr>
                 </tbody>
             </table>
+            <div role="group">
+                <a aria-hidden="true"
+                   th:href="@{'/admin/displayCourses/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   th:if="${currentPage > 1}">&#8592;</a>
+                <a aria-hidden="true" class="disabled" th:unless="${currentPage > 1}">&#8592;</a>
+                <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+                    <a th:href="@{'/admin/displayCourses/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                       th:if="${currentPage != page}">[[${page}]]</a>
+                    <a aria-current="page" th:unless="${currentPage != page}">[[${page}]]</a>
+                </span>
+                <a aria-hidden="true"
+                   th:href="@{'/admin/displayCourses/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   th:if="${currentPage < totalPages}">&#8594;</a>
+                <a aria-hidden="true" class="disabled" th:unless="${currentPage < totalPages}">&#8594;</a>
+            </div>
         </div>
         <button class="pico-background-green" data-target="addCourse" onclick="toggleModal(event)">Add Course</button>
     </section>
