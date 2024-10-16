@@ -45,6 +45,7 @@
                     <th scope="col">Course Name</th>
                     <th scope="col">Fees</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,6 +56,9 @@
                     <td><a class="pico-background-amber" href="#" role="button"
                            th:href="@{/admin/viewStudents(id=${course.courseId})}"
                            type="button">VIEW</a></td>
+                    <td><a class="pico-background-red" href="#" role="button"
+                           th:href="@{/admin/deleteCourse(courseId=${course.courseId})}"
+                           type="button">DELETE</a></td>
                 </tr>
                 </tbody>
             </table>
