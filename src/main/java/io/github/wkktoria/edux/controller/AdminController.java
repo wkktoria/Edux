@@ -9,6 +9,7 @@ import io.github.wkktoria.edux.repository.PersonRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -114,7 +115,8 @@ class AdminController {
 
     @GetMapping("/displayCourses")
     ModelAndView displayCourses(Model model) {
-        List<Course> courses = coursesRepository.findAll();
+        List<Course> courses = coursesRepository.findAll(
+                Sort.by("name").descending());
         ModelAndView modelAndView = new ModelAndView("admin/courses");
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("course", new Course());
