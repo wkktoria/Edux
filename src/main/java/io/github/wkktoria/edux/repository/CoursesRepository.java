@@ -14,5 +14,5 @@ public interface CoursesRepository extends JpaRepository<Course, Integer> {
 
     List<Course> findByOrderByName();
 
-    Page<Course> findAll(Pageable pageable);
+    Page<Course> findAll(final Pageable pageable);
 }

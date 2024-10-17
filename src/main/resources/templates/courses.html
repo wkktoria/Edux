@@ -17,13 +17,11 @@
         <p>Find the Right Course for You</p>
     </hgroup>
     <section>
-        <article th:each="courseOffer : ${courseOffers}">
-            <h3 th:text="${courseOffer.name}"></h3>
-            <p>
-                <span><strong th:text="${courseOffer.lessons}"></strong> lessons</span> |
-                <span><strong th:text="${courseOffer.stars}"></strong> stars</span>
-            </p>
-            <p th:text="${courseOffer.description}"></p>
+        <article th:each="course : ${courses}">
+            <h3 th:text="${course.name}"></h3>
+            <p th:if="${course.description != null}" th:text="${course.description}"></p>
+            <p th:unless="${course.description != null}">No description.</p>
+            <p>Students enrolled: <span th:text="${course.persons.size()}"></span></p>
         </article>
     </section>
 </main>

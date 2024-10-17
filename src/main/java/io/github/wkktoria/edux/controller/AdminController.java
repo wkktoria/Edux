@@ -143,7 +143,7 @@ class AdminController {
     ModelAndView addNewStudent(Model model, @ModelAttribute("course") Course course) {
         ModelAndView modelAndView = new ModelAndView();
         coursesRepository.save(course);
-        modelAndView.setViewName("redirect:/admin/displayCourses");
+        modelAndView.setViewName("redirect:/admin/displayCourses/page/1?sortField=name&sortDir=asc");
         return modelAndView;
     }
 
@@ -212,6 +212,6 @@ class AdminController {
             }
             coursesRepository.delete(course.get());
         }
-        return new ModelAndView("redirect:/admin/displayCourses");
+        return new ModelAndView("redirect:/admin/displayCourses/page/1?sortField=name&sortDir=asc");
     }
 }

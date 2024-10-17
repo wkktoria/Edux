@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CoursesService {
     private final CoursesRepository coursesRepository;
@@ -24,5 +26,14 @@ public class CoursesService {
                 sortDir.equals("asc") ? Sort.by(sortField).ascending()
                         : Sort.by(sortField).descending());
         return coursesRepository.findAll(pageable);
+    }
+
+    public List<Course> findAll() {
+        return coursesRepository.findAll();
+    }
+
+    public List<Course> findFirstTree() {
+        return coursesRepository.findAll()
+                .stream().limit(3).toList();
     }
 }
