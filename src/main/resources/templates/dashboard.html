@@ -42,7 +42,7 @@
             Profile
         </a>
         <a class="pico-background-orange" href="#" role="button" sec:authorize="hasRole('ROLE_ADMIN')"
-           th:href="@{/displayMessages}"
+           th:href="@{'/displayMessages/page/1?sortField=name&sortDir=asc'}"
            type="button">
             <svg
                     fill="none"
@@ -84,7 +84,7 @@
             Classes
         </a>
         <a class="pico-background-violet" href="#" role="button" sec:authorize="hasRole('ROLE_ADMIN')"
-           th:href="@{'/admin/displayCourses/page/1?sortField=name&sortDir=desc'}"
+           th:href="@{'/admin/displayCourses/page/1?sortField=name&sortDir=asc'}"
            type="button">
             <svg
                     fill="none"

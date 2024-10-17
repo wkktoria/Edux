@@ -20,11 +20,36 @@
         <table>
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Email</th>
-                <th scope="col">Subject</th>
-                <th scope="col">Message</th>
+                <th scope="col">
+                    <a href="#"
+                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                        Name &#8593;&#8595;
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="#"
+                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=phoneNumber&sortDir=' + ${reverseSortDir}}">
+                        Phone Number &#8593;&#8595;
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="#"
+                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                        Email &#8593;&#8595;
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="#"
+                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}">
+                        Subject &#8593;&#8595;
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="#"
+                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}">
+                        Message &#8593;&#8595;
+                    </a>
+                </th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -41,6 +66,21 @@
             </tr>
             </tbody>
         </table>
+        <div role="group">
+            <a aria-hidden="true"
+               th:href="@{'/displayMessages/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+               th:if="${currentPage > 1}">&#8592;</a>
+            <a aria-hidden="true" class="disabled" th:unless="${currentPage > 1}">&#8592;</a>
+            <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+                    <a th:href="@{'/displayMessages/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                       th:if="${currentPage != page}">[[${page}]]</a>
+                    <a aria-current="page" th:unless="${currentPage != page}">[[${page}]]</a>
+                </span>
+            <a aria-hidden="true"
+               th:href="@{'/displayMessages/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+               th:if="${currentPage < totalPages}">&#8594;</a>
+            <a aria-hidden="true" class="disabled" th:unless="${currentPage < totalPages}">&#8594;</a>
+        </div>
     </div>
     <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
 </main>
