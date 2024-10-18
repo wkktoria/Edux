@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -51,15 +50,11 @@ public class ContactService {
 
     public boolean updateMessageStatus(final int contactId) {
         boolean isUpdated = false;
+        int result = contactRepository.updateStatusById(
+                EduxConstants.CLOSED, contactId
+        );
 
-        final Optional<Contact> contact = contactRepository.findById(contactId);
-        contact.ifPresent(c -> {
-            c.setStatus(EduxConstants.CLOSED);
-        });
-
-        final Contact updatedContact = contactRepository.save(contact.get());
-
-        if (updatedContact != null && updatedContact.getUpdatedBy() != null) {
+        if (result > 0) {
             isUpdated = true;
         }
 
