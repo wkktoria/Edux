@@ -5,13 +5,29 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "contact_message")
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "SqlResultSetMapping.count",
+                columns = @ColumnResult(name = "cnt"))
+})
+@NamedQueries({
+        @NamedQuery(name = "Contact.findOpenMessages",
+                query = "SELECT c FROM Contact c WHERE c.status = 'Open'"),
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Contact.findOpenMessagesNative",
+                query = "SELECT * FROM contact_message c WHERE c.status = 'Open'",
+                resultClass = Contact.class),
+        @NamedNativeQuery(name = "Contact.findOpenMessagesNative.count",
+                query = "SELECT COUNT(*) AS cnt FROM contact_message c WHERE c.status = 'Open'",
+                resultSetMapping = "SqlResultSetMapping.count")
+})
 public class Contact extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

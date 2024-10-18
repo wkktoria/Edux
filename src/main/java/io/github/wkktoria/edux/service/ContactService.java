@@ -45,7 +45,7 @@ public class ContactService {
         final int pageSize = 5;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
-        return contactRepository.findByStatus(EduxConstants.OPEN, pageable);
+        return contactRepository.findOpenMessages(pageable);
     }
 
     public boolean updateMessageStatus(final int contactId) {

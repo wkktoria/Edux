@@ -19,6 +19,17 @@ public interface ContactRepository extends CrudRepository<Contact, Integer> {
     @Query("SELECT c FROM Contact c WHERE c.status = :status")
     Page<Contact> findByStatus(final String status, final Pageable pageable);
 
+    Page<Contact> findOpenMessages(final Pageable pageable);
+
+    /**
+     * When using this method, sorting won't work.
+     *
+     * @param pageable
+     * @return {@link Pageable}
+     */
+    @Query(nativeQuery = true)
+    Page<Contact> findOpenMessagesNative(final Pageable pageable);
+
     @Transactional
     @Modifying
     @Query("UPDATE Contact c SET c.status = ?1 WHERE c.contactId = ?2")
