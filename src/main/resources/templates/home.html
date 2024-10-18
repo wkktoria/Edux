@@ -114,10 +114,12 @@
         </hgroup>
         <div class="grid">
             <article th:each="topCourse : ${topCourses}">
-                <h5 th:text="${topCourse.name}"></h5>
+                <h5 th:text="${topCourse.name} + ' (' + ${topCourse.fees} + ')'"></h5>
                 <p th:if="${topCourse.description != null}" th:text="${topCourse.description}"></p>
                 <p th:unless="${topCourse.description != null}">No description.</p>
-                <p>Students enrolled: <span th:text="${topCourse.persons.size()}"></span></p>
+                <p>Students enrolled: <span th:text="${topCourse.persons.size()}"></span> | <a href="#"
+                                                                                               th:href="@{/contact}">Enroll
+                    today</a>.</p>
             </article>
         </div>
         <a href="#" role="button" th:href="@{/courses}" type="button">Browse All Courses</a>
