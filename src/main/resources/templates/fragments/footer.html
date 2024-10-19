@@ -11,43 +11,45 @@
 </head>
 <body>
 <footer class="container">
-    <section>
-        <h6>About Us</h6>
-        <p>Our mission is to provide the best education for everyone.</p>
-    </section>
-    <section>
-        <h6>Quick Links</h6>
-        <ul>
-            <li>
-                <a href="#" th:href="@{/home}">Home</a>
-            </li>
-            <li>
-                <a href="#" th:href="@{/courses}">Courses</a>
-            </li>
-            <li>
-                <a href="#" th:href="@{/contact}">Contact</a>
-            </li>
-            <li>
-                <a href="#" th:href="@{/about}">About</a>
-            </li>
-            <li>
-                <a href="#" th:href="@{/holidays}">Holidays</a>
-            </li>
-        </ul>
-    </section>
-    <section>
-        <h6>Contact Us</h6>
-        <p>Email: <a href="#">info@edux.com</a></p>
-        <p>Phone: <a href="#">+123 456 7890</a></p>
-        <form>
-            <fieldset role="group">
-                <label for="email">
-                </label>
-                <input autocomplete="email" id="email" name="email" placeholder="Enter your email" type="email">
-                <input type="submit" value="Subscribe">
-            </fieldset>
-        </form>
-    </section>
+    <div class="grid">
+        <section>
+            <h6>About Us</h6>
+            <p>Our mission is to provide the best education for everyone.</p>
+        </section>
+        <section>
+            <h6>Quick Links</h6>
+            <ul>
+                <li>
+                    <a href="#" th:href="@{/home}">Home</a>
+                </li>
+                <li>
+                    <a href="#" th:href="@{/courses}">Courses</a>
+                </li>
+                <li>
+                    <a href="#" th:href="@{/contact}">Contact</a>
+                </li>
+                <li>
+                    <a href="#" th:href="@{/about}">About</a>
+                </li>
+                <li>
+                    <a href="#" th:href="@{/holidays}">Holidays</a>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h6>Contact Us</h6>
+            <p>Email: <a href="#">info@edux.com</a></p>
+            <p>Phone: <a href="#">+123 456 7890</a></p>
+            <form>
+                <fieldset role="group">
+                    <label for="email">
+                    </label>
+                    <input autocomplete="email" id="email" name="email" placeholder="Enter your email" type="email">
+                    <input type="submit" value="Subscribe">
+                </fieldset>
+            </form>
+        </section>
+    </div>
 </footer>
 </body>
 </html>
