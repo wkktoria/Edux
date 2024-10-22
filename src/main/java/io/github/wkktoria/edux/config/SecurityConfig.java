@@ -15,6 +15,7 @@ class SecurityConfig {
         http.csrf((csrf) -> csrf
                         .ignoringRequestMatchers("/saveMessage")
                         .ignoringRequestMatchers("/public/**")
+                        .ignoringRequestMatchers("/api/**")
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
@@ -30,6 +31,7 @@ class SecurityConfig {
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayProfile").authenticated()
                         .requestMatchers("/updateProfile").authenticated()
+                        .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
