@@ -1,5 +1,6 @@
 package io.github.wkktoria.edux.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.wkktoria.edux.annotation.FieldsValueMatch;
 import io.github.wkktoria.edux.annotation.PasswordValidator;
 import jakarta.persistence.*;
@@ -50,14 +51,17 @@ public class Person extends BaseEntity {
     private String email;
 
     @Transient
+    @JsonIgnore
     private String confirmEmail;
 
     @NotBlank(message = "Password must not be blank.")
     @Size(min = 5, message = "Password must be at least 5 characters long.")
     @PasswordValidator
+    @JsonIgnore
     private String password;
 
     @Transient
+    @JsonIgnore
     private String confirmPassword;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Role.class)

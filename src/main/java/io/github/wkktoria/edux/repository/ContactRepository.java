@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public interface ContactRepository extends CrudRepository<Contact, Integer> {
     List<Contact> findByStatus(final String status);
 
     @Query("SELECT c FROM Contact c WHERE c.status = :status")
-    Page<Contact> findByStatus(final String status, final Pageable pageable);
+    Page<Contact> findByStatusPageable(final String status, final Pageable pageable);
 
     Page<Contact> findOpenMessages(final Pageable pageable);
 

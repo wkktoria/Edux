@@ -16,6 +16,7 @@ class SecurityConfig {
                         .ignoringRequestMatchers("/saveMessage")
                         .ignoringRequestMatchers("/public/**")
                         .ignoringRequestMatchers("/api/**")
+                        .ignoringRequestMatchers("/data-api/**")
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
@@ -32,6 +33,7 @@ class SecurityConfig {
                         .requestMatchers("/displayProfile").authenticated()
                         .requestMatchers("/updateProfile").authenticated()
                         .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/data-api/**").authenticated()
                         .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
