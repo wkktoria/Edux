@@ -1,54 +1,50 @@
 <!doctype html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="light dark" name="color-scheme">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          rel="stylesheet">
     <title>Edux :: Footer</title>
 </head>
 <body>
-<footer class="container">
-    <div class="grid">
-        <section>
-            <h6>About Us</h6>
-            <p>Our mission is to provide the best education for everyone.</p>
-        </section>
-        <section>
-            <h6>Quick Links</h6>
-            <ul>
-                <li>
-                    <a href="#" th:href="@{/home}">Home</a>
-                </li>
-                <li>
-                    <a href="#" th:href="@{/courses}">Courses</a>
-                </li>
-                <li>
-                    <a href="#" th:href="@{/contact}">Contact</a>
-                </li>
-                <li>
-                    <a href="#" th:href="@{/about}">About</a>
-                </li>
-                <li>
-                    <a href="#" th:href="@{/holidays}">Holidays</a>
-                </li>
-            </ul>
-        </section>
-        <section>
-            <h6>Contact Us</h6>
-            <p>Email: <a href="#">info@edux.com</a></p>
-            <p>Phone: <a href="#">+123 456 7890</a></p>
-            <form>
-                <fieldset role="group">
-                    <label for="email">
-                    </label>
-                    <input autocomplete="email" id="email" name="email" placeholder="Enter your email" type="email">
-                    <input type="submit" value="Subscribe">
-                </fieldset>
-            </form>
-        </section>
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+    <section>
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-school me-3"></i>Edux
+                    </h6>
+                    <p>Our mission is to provide the best education for everyone.</p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Quick Links</h6>
+                    <p>
+                        <a class="text-reset" th:href="@{/home}">Home</a>
+                    </p>
+                    <p>
+                        <a class="text-reset" th:href="@{/courses}">Courses</a>
+                    </p>
+                    <p>
+                        <a class="text-reset" th:href="@{/contact}">Contact</a>
+                    </p>
+                    <p>
+                        <a class="text-reset" th:href="@{/holidays}">Holidays</a>
+                    </p>
+                    <p>
+                        <a class="text-reset" th:href="@{/about}">About</a>
+                    </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p><i class="fas fa-home me-3"></i> Warsaw, Poland</p>
+                    <p><i class="fas fa-envelope me-3"></i>info@edux.com</p>
+                    <p><i class="fas fa-phone me-3"></i>+123 456 7890</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        &copy; 2024 Copyright: Edux
     </div>
 </footer>
 </body>
