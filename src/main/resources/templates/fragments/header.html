@@ -24,11 +24,14 @@
                     <li class="nav-item" sec:authorize="isAnonymous() or isAuthenticated()">
                         <a class="nav-link active" th:href="@{/courses}">Courses</a>
                     </li>
-                    <li class="nav-item" sec:authorize="isAnonymous() or isAuthenticated()">
+                    <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link active" th:href="@{/contact}">Contact</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link active" th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link active" th:href="@{/public/register}">Register</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link active" th:href="@{/dashboard}">Dashboard</a>
