@@ -1,0 +1,10 @@
+services:
+  mysql-local:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - ${MYSQL_LOCAL_PORT}:${MYSQL_DOCKER_PORT}
+    volumes:
+      - "./schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./data.sql:/docker-entrypoint-initdb.d/2.sql"
