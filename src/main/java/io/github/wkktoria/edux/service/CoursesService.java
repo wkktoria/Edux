@@ -32,8 +32,8 @@ public class CoursesService {
         return coursesRepository.findAll();
     }
 
-    public List<Course> findFirstTree() {
+    public List<Course> findFirstN(final int n) {
         return coursesRepository.findAll()
-                .stream().limit(3).toList();
+                .stream().limit(n).toList();
     }
 }

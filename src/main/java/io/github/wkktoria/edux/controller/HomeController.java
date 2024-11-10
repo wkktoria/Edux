@@ -20,7 +20,7 @@ class HomeController {
 
     @RequestMapping(value = {"", "/", "/home"})
     ModelAndView displayHomePage() {
-        List<Course> topCourses = coursesService.findFirstTree();
+        List<Course> topCourses = coursesService.findFirstN(4);
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("topCourses", topCourses);
 
