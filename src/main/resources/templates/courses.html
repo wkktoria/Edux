@@ -7,24 +7,52 @@
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           rel="stylesheet"/>
-    <title>Courses | Edux</title>
+    <title>Courses - Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <hgroup>
-        <h1>Best Courses</h1>
-        <p>Find the Right Course for You</p>
-    </hgroup>
-    <section>
-        <article th:each="course : ${courses}">
-            <h3 th:text="${course.name} + ' (' + ${course.fees} + ')'"></h3>
-            <p th:if="${course.description != null}" th:text="${course.description}"></p>
-            <p th:unless="${course.description != null}">No description.</p>
-            <p>Students enrolled: <span th:text="${course.persons.size()}"></span> | <a href="#"
-                                                                                        th:href="@{/contact}">Enroll
-                today</a>.</p>
-        </article>
+<main>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <h2 class="text-center mb-4">Courses</h2>
+            <div class="row justify-content-center mb-3" th:each="course : ${courses}">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card shadow-0 border rounded-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                        <img alt="Course image" class="w-100"
+                                             src="/assets/images/course.png"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-6">
+                                    <h5 th:text="${course.name}"></h5>
+                                    <div class="d-flex flex-row">
+                                        <span class="me-1">Students:</span>
+                                        <span th:text="${course.persons.size()}"></span>
+                                    </div>
+                                    <p class="mb-4 mb-md-0" th:if="${course.description != null}"
+                                       th:text="${course.description}"></p>
+                                    <p class="mb-4 mb-md-0" th:unless="${course.description != null}">No
+                                        description.</p>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <h4 class="mb-1 me-1" th:text="${course.fees}"></h4>
+                                    </div>
+                                    <h6 class="text-success">Money-back guarantee</h6>
+                                    <div class="d-flex flex-column mt-4">
+                                        <a class="btn btn-primary btn-sm" th:href="@{/contact}" type="button">Contact us
+                                            to enroll</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
