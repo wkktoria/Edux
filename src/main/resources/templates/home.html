@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+<html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -13,13 +13,7 @@
 </head>
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
-<div class="alert alert-danger alert-dismissible fade show" role="alert" sec:authorize="isAnonymous()">
-    <strong>This is not a real website!</strong> This is created for a learning purpose only and doesn't offer any
-    courses. You can <a class="alert-link" th:href="@{/register}">create an account</a> to test the website, but using
-    personal info is not recommended. Or you can sign in with admin credentials using <strong>admin@edux.com</strong> as
-    an email address and <strong>adminstr0ngp@sw00rd</strong> as a password.
-    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
-</div>
+<div th:replace="~{fragments/warning :: #warning}"></div>
 <main>
     <div class="container-fluid px-4 py-5 my-5 text-center">
         <div class="lc-block mb-4">
