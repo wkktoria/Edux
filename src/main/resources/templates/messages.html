@@ -9,79 +9,99 @@
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           rel="stylesheet"/>
-    <title>Edux - Contact Messages</title>
+    <title>Messages - Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <h1>Contact Messages</h1>
-    <div class="overflow-auto">
-        <table>
-            <thead>
-            <tr>
-                <th scope="col">
-                    <a href="#"
-                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
-                        Name &#8593;&#8595;
-                    </a>
-                </th>
-                <th scope="col">
-                    <a href="#"
-                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=phoneNumber&sortDir=' + ${reverseSortDir}}">
-                        Phone Number &#8593;&#8595;
-                    </a>
-                </th>
-                <th scope="col">
-                    <a href="#"
-                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
-                        Email &#8593;&#8595;
-                    </a>
-                </th>
-                <th scope="col">
-                    <a href="#"
-                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}">
-                        Subject &#8593;&#8595;
-                    </a>
-                </th>
-                <th scope="col">
-                    <a href="#"
-                       th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}">
-                        Message &#8593;&#8595;
-                    </a>
-                </th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="message : ${contactMessages}">
-                <td th:text="${message.name}"></td>
-                <td th:text="${message.phoneNumber}"></td>
-                <td th:text="${message.email}"></td>
-                <td th:text="${message.subject}"></td>
-                <td th:text="${message.message}"></td>
-                <td><a class="pico-background-red" href="#" role="button"
-                       th:href="@{/closeMessage(id=${message.contactId})}" type="button">CLOSE</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div role="group">
-            <a aria-hidden="true"
-               th:href="@{'/displayMessages/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-               th:if="${currentPage > 1}">&#8592;</a>
-            <a aria-hidden="true" class="disabled" th:unless="${currentPage > 1}">&#8592;</a>
-            <span th:each="page : ${#numbers.sequence(1, totalPages)}">
-                    <a th:href="@{'/displayMessages/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-                       th:if="${currentPage != page}">[[${page}]]</a>
-                    <a aria-current="page" th:unless="${currentPage != page}">[[${page}]]</a>
-                </span>
-            <a aria-hidden="true"
-               th:href="@{'/displayMessages/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-               th:if="${currentPage < totalPages}">&#8594;</a>
-            <a aria-hidden="true" class="disabled" th:unless="${currentPage < totalPages}">&#8594;</a>
+<main>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">Messages</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                                Name<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=phoneNumber&sortDir=' + ${reverseSortDir}}">
+                                Phone Number<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                                Email<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}">
+                                Subject<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}">
+                                Message<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message : ${contactMessages}">
+                        <td th:text="${message.name}"></td>
+                        <td th:text="${message.phoneNumber}"></td>
+                        <td th:text="${message.email}"></td>
+                        <td th:text="${message.subject}"></td>
+                        <td th:text="${message.message}"></td>
+                        <th><a class="btn btn-danger btn-sm" th:href="@{/closeMessage(id=${message.contactId})}">Close
+                            message</a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="mt-2">
+                <ul class="pagination justify-content-center">
+                    <li aria-hidden="true" class="page-item" th:if="${currentPage > 1}">
+                        <a class="page-link"
+                           th:href="@{'/displayMessages/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+                    </li>
+                    <li aria-hidden="true" class="disabled page-item" th:unless="${currentPage > 1}">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(1, totalPages)}">
+                        <a class="page-link"
+                           th:href="@{'/displayMessages/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           th:if="${currentPage != page}">[[${page}]]</a>
+                        <a class="page-link" th:unless="${currentPage != page}">[[${page}]]</a>
+                    </li>
+                    <li aria-hidden="true" class="page-item" th:if="${currentPage < totalPages}">
+                        <a class="page-link"
+                           th:href="@{'/displayMessages/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                    </li>
+                    <li aria-hidden="true" class="disabled page-item" th:unless="${currentPage < totalPages}">
+                        <a class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="d-flex justify-content-center my-4">
+                <a class="btn btn-primary" th:href="@{/dashboard}">Back to Dashboard</a>
+            </div>
         </div>
-    </div>
-    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
+    </section>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
