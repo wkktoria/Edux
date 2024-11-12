@@ -66,9 +66,9 @@
                         <td th:text="${message.email}"></td>
                         <td th:text="${message.subject}"></td>
                         <td th:text="${message.message}"></td>
-                        <th><a class="btn btn-danger btn-sm" th:href="@{/closeMessage(id=${message.contactId})}">Close
+                        <td><a class="btn btn-danger btn-sm" th:href="@{/closeMessage(id=${message.contactId})}">Close
                             message</a>
-                        </th>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
