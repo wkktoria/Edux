@@ -11,8 +11,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This represents the user of the app.
@@ -84,5 +84,5 @@ public class Person extends BaseEntity {
             inverseJoinColumns = {
                     @JoinColumn(name = "course_id", referencedColumnName = "courseId")
             })
-    private Set<Course> courses = new HashSet<>();
+    private List<Course> courses = new ArrayList<>();
 }

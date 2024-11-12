@@ -179,11 +179,17 @@ class AdminController {
             return modelAndView;
         }
 
-        personEntity.getCourses().add(course);
-        course.getPersons().add(personEntity);
-        personRepository.save(personEntity);
-        session.setAttribute("course", course);
-        modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
+        try {
+            personEntity.getCourses().add(course);
+            course.getPersons().add(personEntity);
+            personRepository.save(personEntity);
+            session.setAttribute("course", course);
+            modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
+        } catch (Exception e) {
+            modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId()
+                    + "&error=true");
+        }
+
         return modelAndView;
     }
 

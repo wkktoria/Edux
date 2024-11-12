@@ -2,47 +2,48 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="light dark" name="color-scheme">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
-          rel="stylesheet">
-    <title>About | Edux</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          rel="stylesheet"/>
+    <link href="/assets/css/main.css" rel="stylesheet"/>
+    <title>About - Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <hgroup>
-        <h1>About Us</h1>
-        <p>Get to Know Us Better</p>
-    </hgroup>
-    <section>
-        <hgroup>
-            <h2>Our Team</h2>
-            <p>Meet Our Teachers</p>
-        </hgroup>
-        <div class="grid">
-            <details th:each="teacher : ${teachers}">
-                <summary role="button" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></summary>
-                <article>
-                    <p th:text="${teacher.summary}"></p>
-                    <p>Email: <a href="#" th:text="${teacher.email}"></a></p>
-                </article>
-            </details>
+<main>
+    <h1 class="text-center mt-2">About us</h1>
+    <div class="container">
+        <div class="row">
+            <h2 class="">Our team</h2>
+            <div class="col-lg-4" th:each="teacher : ${teachers}">
+                <img alt="Teacher image" class="rounded-circle" height="140"
+                     src="/assets/images/teacher.svg" width="140">
+                <h4 th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></h4>
+                <p th:text="${teacher.summary}"></p>
+                <p>Email: <a class="text-reset" href="#" th:text="${teacher.email}"></a></p>
+            </div>
         </div>
-    </section>
-    <section>
-        <hgroup>
-            <h2>Our Environment</h2>
-            <p>Clean and Safe Environment</p>
-        </hgroup>
-        <p>We maintain the safest environment for both teachers and students by sanitizing the school daily. Enough
-            security is in place with the help of dedicated security team and cameras inside the campus.</p>
-        <a href="#" role="button" th:href="@{/contact}" type="button">Contact Us</a>
-    </section>
+        <hr/>
+        <div class="row mb-4">
+            <div class="col-md-7 order-md-2 mb-2">
+                <h2>Our environment</h2>
+                <p class="lead">We maintain the safest environment for both teachers and students by sanitizing the
+                    school daily. Enough security is in place with the help of dedicated security team and cameras
+                    inside the campus.</p>
+                <a class="btn btn-primary" th:href="@{/contact}">Contact us</a>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img alt="Environment image" src="/assets/images/environment.svg" width="300">
+            </div>
+        </div>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<script src="/assets/js/theme-switcher.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

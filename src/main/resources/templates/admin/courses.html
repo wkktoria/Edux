@@ -2,107 +2,137 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="light dark" name="color-scheme">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
-          rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
-    <title>Edux - Courses</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          rel="stylesheet"/>
+    <title>Courses - Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <h1>Courses Details</h1>
-    <section>
-        <dialog id="addCourse">
-            <article>
-                <header>
-                    <button aria-label="Close" data-target="addCourse" onclick="toggleModal(event)"
-                            rel="prev"></button>
-                    <h3>Add New Course</h3>
-                </header>
-                <form action="#" method="post" th:action="@{/admin/addNewCourse}" th:object="${course}">
-                    <fieldset>
-                        <label class="required-field" for="courseName">Course Name:</label>
-                        <input id="courseName" name="courseName" placeholder="Enter course name"
-                               required
-                               th:field="*{name}">
-                        <label for="courseDescription">Course Description:</label>
-                        <input id="courseDescription" name="courseDescription" placeholder="Enter course description"
-                               th:field="*{description}">
-                        <label class="required-field" for="fees">Fees:</label>
-                        <input id="fees" name="fees" placeholder="Enter fees"
-                               required
-                               th:field="*{fees}">
-                    </fieldset>
-                    <button class="pico-background-green" type="submit">Submit</button>
-                </form>
-            </article>
-        </dialog>
-        <div class="overflow-auto">
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col">
-                        <a href="#"
-                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=courseId&sortDir=' + ${reverseSortDir}}">
-                            Course ID &#8593;&#8595;
-                        </a>
-                    </th>
-                    <th scope="col">
-                        <a href="#"
-                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
-                            Course Name &#8593;&#8595;
-                        </a>
-                    </th>
-                    <th scope="col">
-                        <a href="#"
-                           th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=fees&sortDir=' + ${reverseSortDir}}">
-                            Fees &#8593;&#8595;
-                        </a>
-                    </th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="course : ${courses}">
-                    <td th:text="${course.courseId}"></td>
-                    <td th:text="${course.name}"></td>
-                    <td th:text="${course.fees}"></td>
-                    <td><a class="pico-background-amber" href="#" role="button"
-                           th:href="@{/admin/viewStudents(id=${course.courseId})}"
-                           type="button">VIEW</a></td>
-                    <td><a class="pico-background-red" href="#" role="button"
-                           th:href="@{/admin/deleteCourse(courseId=${course.courseId})}"
-                           type="button">DELETE</a></td>
-                </tr>
-                </tbody>
-            </table>
-            <div role="group">
-                <a aria-hidden="true"
-                   th:href="@{'/admin/displayCourses/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-                   th:if="${currentPage > 1}">&#8592;</a>
-                <a aria-hidden="true" class="disabled" th:unless="${currentPage > 1}">&#8592;</a>
-                <span th:each="page : ${#numbers.sequence(1, totalPages)}">
-                    <a th:href="@{'/admin/displayCourses/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-                       th:if="${currentPage != page}">[[${page}]]</a>
-                    <a aria-current="page" th:unless="${currentPage != page}">[[${page}]]</a>
-                </span>
-                <a aria-hidden="true"
-                   th:href="@{'/admin/displayCourses/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-                   th:if="${currentPage < totalPages}">&#8594;</a>
-                <a aria-hidden="true" class="disabled" th:unless="${currentPage < totalPages}">&#8594;</a>
+<main>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">Courses</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-success mb-4" data-bs-target="#addCourse" data-bs-toggle="modal"
+                    type="button">
+                Add new course
+            </button>
+            <div aria-hidden="true" aria-labelledby="addCourseLabel" class="modal fade" data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 id="addCourse" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addCourseLabel">Add new course</h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" th:action="@{/admin/addNewCourse}" th:object="${course}">
+                                <div class="mb-3">
+                                    <label class="form-label" for="courseName">Course name</label>
+                                    <input class="form-control" id="courseName" name="courseName"
+                                           placeholder="Enter course name..." required th:field="*{name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="courseDescription">Course description</label>
+                                    <input class="form-control" id="courseDescription" name="courseDescription"
+                                           placeholder="Enter course description..." required th:field="*{description}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="fees">Course name</label>
+                                    <input class="form-control" id="fees" name="fees"
+                                           placeholder="Enter fees..." required th:field="*{fees}">
+                                </div>
+                                <button class="btn btn-primary btn-success" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=courseId&sortDir=' + ${reverseSortDir}}">
+                                Course ID<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                                Course Name<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-reset"
+                               th:href="@{'/admin/displayCourses/page/' + ${currentPage} + '?sortField=fees&sortDir=' + ${reverseSortDir}}">
+                                Fees<i class="fa-solid fa-sort ms-1"></i></a>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course : ${courses}">
+                        <td th:text="${course.courseId}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.fees}"></td>
+                        <td><a class="btn btn-info btn-sm"
+                               th:href="@{/admin/viewStudents(id=${course.courseId})}">View details</a>
+                        </td>
+                        <td><a class="btn btn-danger btn-sm"
+                               th:href="@{/admin/deleteCourse(courseId=${course.courseId})}">Delete course</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="mt-2">
+                <ul class="pagination justify-content-center">
+                    <li aria-hidden="true" class="page-item" th:if="${currentPage > 1}">
+                        <a class="page-link"
+                           th:href="@{'/admin/displayCourses/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+                    </li>
+                    <li aria-hidden="true" class="disabled page-item" th:unless="${currentPage > 1}">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(1, totalPages)}">
+                        <a class="page-link"
+                           th:href="@{'/admin/displayCourses/page/' + ${page} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           th:if="${currentPage != page}">[[${page}]]</a>
+                        <a class="page-link" th:unless="${currentPage != page}">[[${page}]]</a>
+                    </li>
+                    <li aria-hidden="true" class="page-item" th:if="${currentPage < totalPages}">
+                        <a class="page-link"
+                           th:href="@{'/admin/displayCourses/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                    </li>
+                    <li aria-hidden="true" class="disabled page-item" th:unless="${currentPage < totalPages}">
+                        <a class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="d-flex justify-content-center my-4">
+                <a class="btn btn-primary" th:href="@{/dashboard}">Back to Dashboard</a>
             </div>
         </div>
-        <button class="pico-background-green" data-target="addCourse" onclick="toggleModal(event)">Add Course</button>
     </section>
-    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<script src="/assets/js/theme-switcher.js"></script>
-<script src="/assets/js/modal.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

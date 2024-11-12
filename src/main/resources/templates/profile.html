@@ -4,54 +4,165 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="light dark" name="color-scheme">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
-          rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
-    <title>Edux - Profile</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          rel="stylesheet"/>
+    <title>My Profile - Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <h1>My Profile</h1>
-    <ul>
-        <li class="pico-color-red" th:each="error : ${#fields.errors('profile.*')}" th:text="${error}"></li>
-    </ul>
-    <form action="#" method="post" th:action="@{/updateProfile}" th:object="${profile}">
-        <fieldset>
-            <legend>Personal Details</legend>
-            <label class="required-field" for="name">Name:</label>
-            <input autocomplete="name" id="name" name="name" th:field="*{name}">
-            <label class="required-field" for="phoneNumber">Phone Number:</label>
-            <input autocomplete="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}">
-            <label class="required-field" for="email">Email:</label>
-            <input autocomplete="email" id="email" name="email" th:field="*{email}">
-        </fieldset>
-        <fieldset>
-            <legend>Address Details</legend>
-            <label class="required-field" for="address1">Address Line 1:</label>
-            <input autocomplete="address-line1" id="address1" name="address1" th:field="*{address1}">
-            <label for="address2">Address Line 2:</label>
-            <input autocomplete="address-line2" id="address2" name="address2" th:field="*{address2}">
-            <label class="required-field" for="city">City:</label>
-            <input class="required-field" id="city" name="city" th:field="*{city}">
-            <label for="state">State:</label>
-            <input id="state" name="state" th:field="*{state}">
-            <label class="required-field" for="zipCode">Zip Code:</label>
-            <input autocomplete="postal-code" id="zipCode" name="zipCode" th:field="*{zipCode}">
-            <label class="required-field" for="country">Country:</label>
-            <input autocomplete="country-name" id="country" name="country" th:field="*{country}">
-        </fieldset>
-        <input class="pico-background-green" type="submit" value="Update Profile">
-        <a th:href="@{/dashboard}">
-            <button th:formaction="@{/dashboard}">Back to Dashboard</button>
-        </a>
-    </form>
+<main>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush rounded-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3 text-danger"
+                            th:each="error : ${#fields.errors('profile.*')}" th:text="${error}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form method="post" th:action="@{/updateProfile}" th:object="${profile}">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <img alt="User image" class="rounded-circle img-fluid" src="/assets/images/user.svg"
+                                     width="150">
+                                <h5 class="my-3">User Profile</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Full Name<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{name}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Phone Number<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{phoneNumber}" type="tel"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email Address<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{email}"
+                                                   type="email"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Address Line 1<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{address1}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Address Line 2</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{address2}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">City<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{city}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">State</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{state}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Zip Code<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{zipCode}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Country<span class="text-danger">*</span></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <input class="form-control" th:field="*{country}"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<script src="/assets/js/theme-switcher.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

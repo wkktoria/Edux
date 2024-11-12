@@ -2,72 +2,96 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="light dark" name="color-scheme">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
-          rel="stylesheet">
-    <link href="/assets/css/main.css" rel="stylesheet">
-    <title>Edux - Students</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          rel="stylesheet"/>
+    <title>Class Details - Edux</title>
 </head>
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
-<main class="container">
-    <h1>Students Details</h1>
-    <section>
-        <h2 th:text="'Class: ' + ${eduxClass.name}"></h2>
-        <article class="pico-background-red" th:if="${!#strings.isEmpty(errorMessage)}"
-                 th:text="${errorMessage}"></article>
-        <dialog id="addStudent">
-            <article>
-                <header>
-                    <button aria-label="Close" data-target="addStudent" onclick="toggleModal(event)"
-                            rel="prev"></button>
-                    <h3>Add Student</h3>
-                </header>
-                <form action="#" method="post" th:action="@{/admin/addStudent}" th:object="${person}">
-                    <fieldset>
-                        <label class="required-field" for="email">Email Address:</label>
-                        <input autocomplete="email" id="email" name="email"
-                               placeholder="Email address"
-                               th:field="*{email}">
-                    </fieldset>
-                    <button class="pico-background-green" type="submit">Submit</button>
-                </form>
-            </article>
-        </dialog>
-        <div class="overflow-auto">
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="person : ${eduxClass.persons}">
-                    <td th:text="${person.name}"></td>
-                    <td th:text="${person.email}"></td>
-                    <td th:text="${person.phoneNumber}"></td>
-                    <td><a class="pico-background-red" href="#" role="button"
-                           th:href="@{/admin/deleteStudent(personId=${person.personId})}"
-                           type="button">DELETE</a></td>
-                </tr>
-                </tbody>
-            </table>
+<main>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/admin/displayClasses}">Classes</a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active">Class Details</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <h3 class="text-center" th:text="'Class: ' + ${eduxClass.name}"></h3>
+            <div class="mb-4 d-flex justify-content-between">
+                <button class="btn btn-success" data-bs-target="#addStudent" data-bs-toggle="modal"
+                        type="button">
+                    Add student
+                </button>
+                <a class="btn btn-warning" role="button" th:href="@{/admin/displayClasses}">Display classes</a>
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(errorMessage)}"
+                 th:text="${errorMessage}"></div>
+            <div aria-hidden="true" aria-labelledby="addStudentLabel" class="modal fade" data-bs-backdrop="static"
+                 data-bs-keyboard="false"
+                 id="addStudent" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addStudentLabel">Add student</h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" th:action="@{/admin/addStudent}" th:object="${person}">
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Email address</label>
+                                    <input class="form-control" id="email" name="email"
+                                           placeholder="Enter student's email address..." required th:field="*{email}">
+                                </div>
+                                <button class="btn btn-primary btn-success" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="person : ${eduxClass.persons}">
+                        <td th:text="${person.name}"></td>
+                        <td th:text="${person.email}"></td>
+                        <td th:text="${person.phoneNumber}"></td>
+                        <td><a class="btn btn-danger btn-sm"
+                               th:href="@{/admin/deleteStudent(personId=${person.personId})}">Delete student from
+                            class</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center my-4">
+                <a class="btn btn-primary" th:href="@{/dashboard}">Back to Dashboard</a>
+            </div>
         </div>
-        <button class="pico-background-green" data-target="addStudent" onclick="toggleModal(event)">Add Student</button>
-        <a href="#" th:href="@{/admin/displayClasses}">
-            <button>Display Classes</button>
-        </a>
     </section>
-    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<script src="/assets/js/theme-switcher.js"></script>
-<script src="/assets/js/modal.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
