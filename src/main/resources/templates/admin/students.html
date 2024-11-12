@@ -87,57 +87,6 @@
             </div>
         </div>
     </section>
-    <!--    <h1>Students Details</h1>-->
-    <!--    <section>-->
-    <!--        <h2 th:text="'Class: ' + ${eduxClass.name}"></h2>-->
-    <!--        <article class="pico-background-red" th:if="${!#strings.isEmpty(errorMessage)}"-->
-    <!--                 th:text="${errorMessage}"></article>-->
-    <!--        <dialog id="addStudent">-->
-    <!--            <article>-->
-    <!--                <header>-->
-    <!--                    <button aria-label="Close" data-target="addStudent" onclick="toggleModal(event)"-->
-    <!--                            rel="prev"></button>-->
-    <!--                    <h3>Add Student</h3>-->
-    <!--                </header>-->
-    <!--                <form action="#" method="post" th:action="@{/admin/addStudent}" th:object="${person}">-->
-    <!--                    <fieldset>-->
-    <!--                        <label class="required-field" for="email">Email Address:</label>-->
-    <!--                        <input autocomplete="email" id="email" name="email"-->
-    <!--                               placeholder="Email address"-->
-    <!--                               th:field="*{email}">-->
-    <!--                    </fieldset>-->
-    <!--                    <button class="pico-background-green" type="submit">Submit</button>-->
-    <!--                </form>-->
-    <!--            </article>-->
-    <!--        </dialog>-->
-    <!--        <div class="overflow-auto">-->
-    <!--            <table>-->
-    <!--                <thead>-->
-    <!--                <tr>-->
-    <!--                    <th scope="col">Name</th>-->
-    <!--                    <th scope="col">Email</th>-->
-    <!--                    <th scope="col">Phone Number</th>-->
-    <!--                    <th scope="col"></th>-->
-    <!--                </tr>-->
-    <!--                </thead>-->
-    <!--                <tbody>-->
-    <!--                <tr th:each="person : ${eduxClass.persons}">-->
-    <!--                    <td th:text="${person.name}"></td>-->
-    <!--                    <td th:text="${person.email}"></td>-->
-    <!--                    <td th:text="${person.phoneNumber}"></td>-->
-    <!--                    <td><a class="pico-background-red" href="#" role="button"-->
-    <!--                           th:href="@{/admin/deleteStudent(personId=${person.personId})}"-->
-    <!--                           type="button">DELETE</a></td>-->
-    <!--                </tr>-->
-    <!--                </tbody>-->
-    <!--            </table>-->
-    <!--        </div>-->
-    <!--        <button class="pico-background-green" data-target="addStudent" onclick="toggleModal(event)">Add Student</button>-->
-    <!--        <a href="#" th:href="@{/admin/displayClasses}">-->
-    <!--            <button>Display Classes</button>-->
-    <!--        </a>-->
-    <!--    </section>-->
-    <!--    <a href="#" th:href="@{/dashboard}">Back to Dashboard</a>-->
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
