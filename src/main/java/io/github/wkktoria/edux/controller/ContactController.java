@@ -1,5 +1,6 @@
 package io.github.wkktoria.edux.controller;
 
+import io.github.wkktoria.edux.config.EduxProps;
 import io.github.wkktoria.edux.model.Contact;
 import io.github.wkktoria.edux.service.ContactService;
 import jakarta.validation.Valid;
@@ -18,15 +19,22 @@ import java.util.List;
 @Controller
 class ContactController {
     private final ContactService contactService;
+    private final EduxProps eduxProps;
 
     @Autowired
-    ContactController(ContactService contactService) {
+    ContactController(final ContactService contactService, final EduxProps eduxProps) {
         this.contactService = contactService;
+        this.eduxProps = eduxProps;
     }
 
     @RequestMapping("/contact")
-    String displayContactPage(Model model) {
+    String displayContactPage(@RequestParam(value = "success", required = false) String success, Model model) {
         model.addAttribute("contact", new Contact());
+
+        if (success != null) {
+            model.addAttribute("message", eduxProps.getContact().get("successMessage"));
+        }
+
         return "contact";
     }
 
@@ -37,7 +45,7 @@ class ContactController {
             return "contact";
         }
         contactService.saveMessageDetails(contact);
-        return "redirect:/contact";
+        return "redirect:/contact?success=true";
     }
 
     @RequestMapping("/displayMessages/page/{pageNum}")

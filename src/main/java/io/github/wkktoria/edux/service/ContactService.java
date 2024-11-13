@@ -1,5 +1,6 @@
 package io.github.wkktoria.edux.service;
 
+import io.github.wkktoria.edux.config.EduxProps;
 import io.github.wkktoria.edux.constants.EduxConstants;
 import io.github.wkktoria.edux.model.Contact;
 import io.github.wkktoria.edux.repository.ContactRepository;
@@ -17,10 +18,12 @@ import java.util.List;
 @Service
 public class ContactService {
     private final ContactRepository contactRepository;
+    private final EduxProps eduxProps;
 
     @Autowired
-    public ContactService(final ContactRepository contactRepository) {
+    public ContactService(final ContactRepository contactRepository, final EduxProps eduxProps) {
         this.contactRepository = contactRepository;
+        this.eduxProps = eduxProps;
     }
 
     public boolean saveMessageDetails(Contact contact) {
@@ -42,7 +45,7 @@ public class ContactService {
     }
 
     public Page<Contact> findMessagesWithOpenStatus(final int pageNum, final String sortField, final String sortDir) {
-        final int pageSize = 5;
+        final int pageSize = Integer.parseInt(eduxProps.getContact().get("pageSize"));
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
         return contactRepository.findByStatusPageable(EduxConstants.OPEN, pageable);

@@ -1,5 +1,6 @@
 package io.github.wkktoria.edux.controller;
 
+import io.github.wkktoria.edux.config.EduxProps;
 import io.github.wkktoria.edux.model.Course;
 import io.github.wkktoria.edux.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import java.util.List;
 @Controller
 class HomeController {
     private final CoursesService coursesService;
+    private final EduxProps eduxProps;
 
     @Autowired
-    HomeController(final CoursesService coursesService) {
+    HomeController(final CoursesService coursesService, final EduxProps eduxProps) {
         this.coursesService = coursesService;
+        this.eduxProps = eduxProps;
     }
 
     @RequestMapping(value = {"", "/", "/home"})
@@ -23,6 +26,7 @@ class HomeController {
         List<Course> topCourses = coursesService.findFirstN(4);
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("topCourses", topCourses);
+        modelAndView.addObject("branches", eduxProps.getBranches());
 
         return modelAndView;
     }

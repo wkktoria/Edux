@@ -11,7 +11,7 @@
           rel="stylesheet"/>
     <title>Edux</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header th:replace="~{fragments/header :: header}"></header>
 <div th:replace="~{fragments/warning :: #warning}"></div>
 <main>
@@ -32,6 +32,20 @@
             <img alt="Hero image" class="img-fluid" src="/assets/images/hero.svg">
         </div>
     </div>
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center">Our Branches</h2>
+            <p class="text-center text-muted">We are available around the world</p>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-8" th:each="branch : ${branches}">
+                    <div class="stat-card text-center bg-white p-4 shadow-sm rounded">
+                        <i class="fa-solid fa-building-columns fs-1 text-secondary mb-3"></i>
+                        <h3 class="fs-2 fw-bold" th:text="${branch}"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="bg-light py-5">
         <div class="container">
             <h2 class="text-center">Best Features</h2>

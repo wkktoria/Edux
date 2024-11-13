@@ -31,6 +31,9 @@
                                 <li class="text-danger" th:each="error : ${#fields.errors('contact.*')}"
                                     th:text="${error}"></li>
                             </ul>
+                            <div class="alert alert-success" role="alert" th:if="${!#strings.isEmpty(message)}"
+                                 th:text="${message}">
+                            </div>
                         </div>
                         <form action="/saveMessage" method="post" th:action="@{/saveMessage}" th:object="${contact}">
                             <div class="row gy-4 gy-xl-5 p-4 p-xl-5">
