@@ -12,32 +12,31 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("prod")
+
+/**
+ * Allows to authenticate user who doesn't provide valid password.
+ */
+@Profile("!prod")
 @Component
-public class EduxUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
+class EduxNonProdUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
     private final PersonRepository personRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EduxUsernamePasswordAuthenticationProvider(final PersonRepository personRepository,
-                                                      final PasswordEncoder passwordEncoder) {
+    public EduxNonProdUsernamePasswordAuthenticationProvider(final PersonRepository personRepository) {
         this.personRepository = personRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String email = authentication.getName();
-        final String password = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
 
-        if (person != null && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
+        if (person != null && person.getPersonId() > 0) {
             return new UsernamePasswordAuthenticationToken(
                     email, null, getGrantedAuthorities(person.getRole()));
         } else {
