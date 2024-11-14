@@ -13,5 +13,5 @@ FROM openjdk:21-jdk
 VOLUME /tmp
 
 COPY --from=build /app/target/*.jar edux.jar
-ENTRYPOINT ["java", "-jar", "/edux.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/edux.jar"]
 EXPOSE 8081
