@@ -12,7 +12,7 @@
     <artifactId>edux</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Edux</name>
-    <description>Simple learning platform</description>
+    <description>Simple learning management system</description>
     <properties>
         <java.version>21</java.version>
     </properties>
