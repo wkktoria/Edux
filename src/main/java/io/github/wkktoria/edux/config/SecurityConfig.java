@@ -17,6 +17,7 @@ class SecurityConfig {
                         .ignoringRequestMatchers("/public/**")
                         .ignoringRequestMatchers("/api/**")
                         .ignoringRequestMatchers("/data-api/**")
+                        .ignoringRequestMatchers("/edux/actuator/**")
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
@@ -37,6 +38,7 @@ class SecurityConfig {
                         .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/closeMessage/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/edux/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                 )
                 .formLogin(form -> form
