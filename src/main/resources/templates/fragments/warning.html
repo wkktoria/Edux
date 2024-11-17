@@ -1,18 +1,23 @@
 <!doctype html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Edux :: Warning</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>Edux :: Warning</title>
 </head>
 <body>
-<div class="alert alert-danger alert-dismissible fade show" id="warning" role="alert" sec:authorize="isAnonymous()">
-    <strong>This is not a real website!</strong> This is created for a learning purpose only and doesn't offer any
-    courses. You can <a class="alert-link" th:href="@{/public/register}">create an account</a> to test the website, but
-    using personal info is not recommended. Or you can sign in with admin credentials, using
-    <strong>admin@edux.com</strong> as an email address, and <strong>adminstr0ngp@sw00rd</strong> as a password.
-    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
-</div>
+	<div class="alert alert-danger alert-dismissible fade show"
+		id="warning" role="alert" sec:authorize="isAnonymous()">
+		<strong>This is not real!</strong> It's created for a learning purpose
+		only and doesn't offer any courses. You can <a class="alert-link"
+			th:href="@{/public/register}">create an account</a> to test the
+		application (using personal info is not recommended) or you can sign
+		in with admin credentials (email address: <strong>admin@edux.com</strong>;
+		password: <strong>adminstr0ngp@sw00rd</strong>).
+		<button aria-label="Close" class="btn-close" data-bs-dismiss="alert"
+			type="button"></button>
+	</div>
 </body>
 </html>
