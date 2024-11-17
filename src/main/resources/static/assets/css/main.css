@@ -50,13 +50,3 @@
         top: -40px;
     }
 }
-
-.required-field:after {
-    content: "*";
-    color: red;
-}
-
-.disabled {
-    pointer-events: none;
-    cursor: default;
-}
