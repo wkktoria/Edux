@@ -17,11 +17,11 @@ import java.util.stream.StreamSupport;
         MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE
 })
 @CrossOrigin(origins = "*")
-public class HolidaysRestController {
+class HolidaysRestController {
     private final HolidaysRepository holidaysRepository;
 
     @Autowired
-    public HolidaysRestController(final HolidaysRepository holidaysRepository) {
+    HolidaysRestController(final HolidaysRepository holidaysRepository) {
         this.holidaysRepository = holidaysRepository;
     }
 
