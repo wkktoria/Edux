@@ -1,7 +1,7 @@
 package io.github.wkktoria.edux.controller;
 
 import io.github.wkktoria.edux.model.Teacher;
-import io.github.wkktoria.edux.repository.TeacherRepository;
+import io.github.wkktoria.edux.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +15,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/about")
 class AboutController {
-    private final TeacherRepository teacherRepository;
+    private final TeacherService teacherService;
 
     @Autowired
-    AboutController(final TeacherRepository teacherRepository) {
-        this.teacherRepository = teacherRepository;
+    AboutController(final TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 
     @GetMapping
     ModelAndView getTeachersInfo() {
-        List<Teacher> teachers = teacherRepository.findAll();
+        List<Teacher> teachers = teacherService.findAll();
         ModelAndView modelAndView = new ModelAndView("about");
         modelAndView.addObject("teachers", teachers);
         return modelAndView;
