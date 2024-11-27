@@ -24,6 +24,10 @@ public class PersonService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public Person findByEmail(final String email) {
+        return personRepository.readByEmail(email);
+    }
+
     public boolean createNewPerson(Person person) {
         boolean isSaved = false;
         Role role = roleRepository.getByRoleName(EduxConstants.STUDENT_ROLE);

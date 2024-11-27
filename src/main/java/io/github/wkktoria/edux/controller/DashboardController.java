@@ -1,7 +1,7 @@
 package io.github.wkktoria.edux.controller;
 
 import io.github.wkktoria.edux.model.Person;
-import io.github.wkktoria.edux.repository.PersonRepository;
+import io.github.wkktoria.edux.service.PersonService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 class DashboardController {
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @Autowired
-    DashboardController(final PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    DashboardController(final PersonService personService) {
+        this.personService = personService;
     }
 
     @RequestMapping("/dashboard")
     String displayDashboard(Model model, Authentication auth, HttpSession session) {
-        Person person = personRepository.readByEmail(auth.getName());
+        Person person = personService.findByEmail(auth.getName());
+        assert person != null;
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", person.getRole().getRoleName());
 
