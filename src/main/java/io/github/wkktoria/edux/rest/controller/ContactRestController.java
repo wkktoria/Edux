@@ -2,8 +2,8 @@ package io.github.wkktoria.edux.rest.controller;
 
 import io.github.wkktoria.edux.constants.EduxConstants;
 import io.github.wkktoria.edux.model.Contact;
-import io.github.wkktoria.edux.repository.ContactRepository;
 import io.github.wkktoria.edux.rest.model.Response;
+import io.github.wkktoria.edux.service.ContactService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +20,22 @@ import java.util.Optional;
 })
 @CrossOrigin(origins = "*")
 class ContactRestController {
-    private final ContactRepository contactRepository;
+    private final ContactService contactService;
 
     @Autowired
-    ContactRestController(final ContactRepository contactRepository) {
-        this.contactRepository = contactRepository;
+    ContactRestController(final ContactService contactService) {
+        this.contactService = contactService;
     }
 
     @GetMapping("/getMessagesByStatus")
     List<Contact> getMessagesByStatus(@RequestParam(value = "status") final String status) {
-        return contactRepository.findByStatus(status);
+        return contactService.findMessagesWithStatus(status);
     }
 
     @GetMapping("/getAllMessagesByStatus")
     List<Contact> getAllMessagesByStatus(@RequestBody final Contact contact) {
         if (contact != null && contact.getStatus() != null) {
-            return contactRepository.findByStatus(contact.getStatus());
+            return contactService.findMessagesWithStatus(contact.getStatus());
         } else {
             return List.of();
         }
@@ -45,7 +45,7 @@ class ContactRestController {
     ResponseEntity<Response> saveMessage(@RequestHeader("invocationFrom") String invocationFrom,
                                          @Valid @RequestBody final Contact contact) {
         log.info("Header 'invocationFrom' = '{}'", invocationFrom);
-        contactRepository.save(contact);
+        contactService.saveMessageDetails(contact);
         Response response = new Response();
         response.setStatusCode("200");
         response.setStatusMessage("Message saved successfully.");
@@ -63,7 +63,8 @@ class ContactRestController {
                     key, String.join(" | ", value));
         });
         Contact contact = requestEntity.getBody();
-        contactRepository.deleteById(contact.getContactId());
+        assert contact != null;
+        contactService.deleteMessageDetails(contact.getContactId());
         Response response = new Response();
         response.setStatusCode("200");
         response.setStatusMessage("Message deleted successfully.");
@@ -75,11 +76,11 @@ class ContactRestController {
     @PatchMapping("/closeMessage")
     ResponseEntity<Response> closeMessage(@RequestBody final Contact contactRequest) {
         Response response = new Response();
-        Optional<Contact> contact = contactRepository.findById(contactRequest.getContactId());
+        Optional<Contact> contact = contactService.findMessageById(contactRequest.getContactId());
 
         if (contact.isPresent()) {
             contact.get().setStatus(EduxConstants.CLOSED);
-            contactRepository.save(contact.get());
+            contactService.saveMessageDetails(contact.get());
         } else {
             response.setStatusCode("400");
             response.setStatusMessage("Invalid contact's ID received.");

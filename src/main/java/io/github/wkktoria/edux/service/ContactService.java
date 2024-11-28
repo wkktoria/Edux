@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -40,8 +41,12 @@ public class ContactService {
         return isSaved;
     }
 
+    public List<Contact> findMessagesWithStatus(final String status) {
+        return contactRepository.findByStatus(status);
+    }
+
     public List<Contact> findMessagesWithOpenStatus() {
-        return contactRepository.findByStatus(EduxConstants.OPEN);
+        return findMessagesWithStatus(EduxConstants.OPEN);
     }
 
     public Page<Contact> findMessagesWithOpenStatus(final int pageNum, final String sortField, final String sortDir) {
@@ -49,6 +54,10 @@ public class ContactService {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
         return contactRepository.findByStatusPageable(EduxConstants.OPEN, pageable);
+    }
+
+    public Optional<Contact> findMessageById(final int contactId) {
+        return contactRepository.findById(contactId);
     }
 
     public boolean updateMessageStatus(final int contactId) {
@@ -62,5 +71,9 @@ public class ContactService {
         }
 
         return isUpdated;
+    }
+
+    public void deleteMessageDetails(final int contactId) {
+        contactRepository.deleteById(contactId);
     }
 }
