@@ -5,11 +5,17 @@
 Edux is a simple and intuitive Learning Management System (LMS) that makes it easy to manage and deliver online
 learning.
 
-## Building
+## Build and Run
 
-**Requirements**
+App can be easily built and run with [Docker](https://www.docker.com), but it requires some kind of environment
+configuration.
+
+### Requirements
 
 - [Docker](https://www.docker.com/products/docker-desktop)
+- MySQL database with the proper tables created (see: [edux.schema.sql](src/main/resources/edux_schema.sql))
+
+### Building
 
 1. Create .env file providing MySQL database connection details, it should include:
     - `PROD_MYSQLDB_HOST`
@@ -18,16 +24,10 @@ learning.
     - `PROD_MYSQLDB_USER`
     - `PROD_MYSQLDB_PASSWORD`
 2. Build Docker image: `docker build -t edux .`.
-3. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
-4. Run the container: ``
 
 ## Running
-
-**Requirements**
-
-- [Docker](https://www.docker.com/products/docker-desktop)
 
 1. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
 2. Start the container: `docker start -ai edux`.
 
-Application should be started on port `8081`.
+Application should be running on port `8081`.
