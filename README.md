@@ -25,7 +25,7 @@ configuration.
     - `PROD_MYSQLDB_PASSWORD`
 2. Build Docker image: `docker build -t edux .`.
 
-## Running
+### Running
 
 1. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
 2. Start the container: `docker start -ai edux`.
