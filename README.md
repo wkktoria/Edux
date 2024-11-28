@@ -1,10 +1,33 @@
 # Edux
 
-> [!WARNING]  
-> The database host is not running, if demo doesn't work.
+![Edux's homepage](docs/images/edux_homepage.png)
 
-[Live demo](https://edux-rht9.onrender.com).
+Edux is a simple and intuitive Learning Management System (LMS) that makes it easy to manage and deliver online
+learning.
 
-To login as an admin use these credentials:
-- username: admin@edux.com
-- password: adminstr0ngp@sw00rd
+## Building
+
+**Requirements**
+
+- [Docker](https://www.docker.com/products/docker-desktop)
+
+1. Create .env file providing MySQL database connection details, it should include:
+    - `PROD_MYSQLDB_HOST`
+    - `PROD_MYSQLDB_PORT`
+    - `PROD_MYSQLDB_DATABASE`
+    - `PROD_MYSQLDB_USER`
+    - `PROD_MYSQLDB_PASSWORD`
+2. Build Docker image: `docker build -t edux .`.
+3. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
+4. Run the container: ``
+
+## Running
+
+**Requirements**
+
+- [Docker](https://www.docker.com/products/docker-desktop)
+
+1. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
+2. Start the container: `docker start -ai edux`.
+
+Application should be started on port `8081`.
