@@ -1,15 +1,13 @@
 package io.github.wkktoria.edux.rest.controller;
 
 import io.github.wkktoria.edux.model.Holiday;
-import io.github.wkktoria.edux.repository.HolidaysRepository;
+import io.github.wkktoria.edux.service.HolidaysService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Slf4j
 @RestController
@@ -18,25 +16,20 @@ import java.util.stream.StreamSupport;
 })
 @CrossOrigin(origins = "*")
 class HolidaysRestController {
-    private final HolidaysRepository holidaysRepository;
+    private final HolidaysService holidaysService;
 
     @Autowired
-    HolidaysRestController(final HolidaysRepository holidaysRepository) {
-        this.holidaysRepository = holidaysRepository;
+    HolidaysRestController(final HolidaysService holidaysService) {
+        this.holidaysService = holidaysService;
     }
 
     @GetMapping("/getHolidays")
     List<Holiday> getHolidays() {
-        Iterable<Holiday> holidays = holidaysRepository.findAll();
-        return StreamSupport.stream(holidays.spliterator(), false).toList();
+        return holidaysService.findAll();
     }
 
     @GetMapping("/getHolidaysByType")
     List<Holiday> getHolidaysByType(@RequestParam final String type) {
-        Iterable<Holiday> holidays = holidaysRepository.findAll();
-        List<Holiday> holidayList = StreamSupport.stream(holidays.spliterator(), false).toList();
-
-        return holidayList.stream().filter(holiday ->
-                holiday.getType().toString().equalsIgnoreCase(type)).collect(Collectors.toList());
+        return holidaysService.findHolidaysWithType(type);
     }
 }

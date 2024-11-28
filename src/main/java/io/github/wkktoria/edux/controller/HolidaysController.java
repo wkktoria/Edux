@@ -1,24 +1,20 @@
 package io.github.wkktoria.edux.controller;
 
 import io.github.wkktoria.edux.model.Holiday;
-import io.github.wkktoria.edux.repository.HolidaysRepository;
+import io.github.wkktoria.edux.service.HolidaysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 @Controller
 class HolidaysController {
-    private final HolidaysRepository holidaysRepository;
+    private final HolidaysService holidaysService;
 
     @Autowired
-    public HolidaysController(final HolidaysRepository holidaysRepository) {
-        this.holidaysRepository = holidaysRepository;
+    public HolidaysController(final HolidaysService holidaysService) {
+        this.holidaysService = holidaysService;
     }
 
     @GetMapping("/holidays")
@@ -37,14 +33,9 @@ class HolidaysController {
             model.addAttribute("federal", true);
         }
 
-        Iterable<Holiday> holidays = holidaysRepository.findAll();
-        List<Holiday> holidayList = StreamSupport.stream(holidays.spliterator(), false).toList();
-
         Holiday.Type[] types = Holiday.Type.values();
-
         for (Holiday.Type type : types) {
-            model.addAttribute(type.toString(),
-                    (holidayList.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList())));
+            model.addAttribute(type.toString(), holidaysService.findHolidaysWithType(type.toString()));
         }
 
         return "holidays";
