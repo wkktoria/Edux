@@ -41,4 +41,8 @@ public class PersonService {
 
         return isSaved;
     }
+
+    public void updatePerson(Person person) {
+        personRepository.save(person);
+    }
 }

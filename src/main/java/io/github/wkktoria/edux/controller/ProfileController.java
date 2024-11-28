@@ -3,7 +3,7 @@ package io.github.wkktoria.edux.controller;
 import io.github.wkktoria.edux.model.Address;
 import io.github.wkktoria.edux.model.Person;
 import io.github.wkktoria.edux.model.Profile;
-import io.github.wkktoria.edux.repository.PersonRepository;
+import io.github.wkktoria.edux.service.PersonService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller("profileControllerBean")
 class ProfileController {
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @Autowired
-    ProfileController(final PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    ProfileController(final PersonService personService) {
+        this.personService = personService;
     }
 
     @RequestMapping("/displayProfile")
@@ -70,7 +70,7 @@ class ProfileController {
         person.getAddress().setZipCode(profile.getZipCode());
         person.getAddress().setCountry(profile.getCountry());
 
-        personRepository.save(person);
+        personService.updatePerson(person);
         session.setAttribute("loggedInPerson", person);
 
         return "redirect:/displayProfile";
