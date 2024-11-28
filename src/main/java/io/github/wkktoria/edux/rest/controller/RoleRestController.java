@@ -1,7 +1,7 @@
 package io.github.wkktoria.edux.rest.controller;
 
 import io.github.wkktoria.edux.model.Role;
-import io.github.wkktoria.edux.repository.RoleRepository;
+import io.github.wkktoria.edux.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,20 +19,20 @@ import java.util.List;
 })
 @CrossOrigin(origins = "*")
 class RoleRestController {
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @Autowired
-    RoleRestController(final RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    RoleRestController(final RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @GetMapping("/getRoles")
     List<Role> getRoles() {
-        return roleRepository.findAll();
+        return roleService.findAll();
     }
 
     @GetMapping("/getRoleByName")
     Role getRoleByName(final String name) {
-        return roleRepository.getByRoleName(name);
+        return roleService.findRoleWithName(name);
     }
 }
