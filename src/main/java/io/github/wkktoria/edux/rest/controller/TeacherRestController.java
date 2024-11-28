@@ -1,7 +1,7 @@
 package io.github.wkktoria.edux.rest.controller;
 
 import io.github.wkktoria.edux.model.Teacher;
-import io.github.wkktoria.edux.repository.TeacherRepository;
+import io.github.wkktoria.edux.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,20 +16,20 @@ import java.util.List;
 })
 @CrossOrigin(origins = "*")
 class TeacherRestController {
-    private final TeacherRepository teacherRepository;
+    private final TeacherService teacherService;
 
     @Autowired
-    TeacherRestController(final TeacherRepository teacherRepository) {
-        this.teacherRepository = teacherRepository;
+    TeacherRestController(final TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 
     @GetMapping("/getTeachers")
     List<Teacher> getTeachers() {
-        return teacherRepository.findAll();
+        return teacherService.findAll();
     }
 
     @GetMapping("/getTeacherByEmail")
     Teacher getTeacherByEmail(@RequestParam final String email) {
-        return teacherRepository.findByEmail(email);
+        return teacherService.findTeacherWithEmail(email);
     }
 }

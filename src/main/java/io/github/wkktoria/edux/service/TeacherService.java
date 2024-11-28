@@ -21,4 +21,8 @@ public class TeacherService {
     public List<Teacher> findAll() {
         return teacherRepository.findAll();
     }
+
+    public Teacher findTeacherWithEmail(final String email) {
+        return teacherRepository.findByEmail(email);
+    }
 }
