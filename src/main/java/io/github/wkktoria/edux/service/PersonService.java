@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
@@ -44,5 +46,13 @@ public class PersonService {
 
     public void updatePerson(Person person) {
         personRepository.save(person);
+    }
+
+    public Person findPersonWithEmail(final String email) {
+        return personRepository.readByEmail(email);
+    }
+
+    public Optional<Person> findPersonWithId(final int personId) {
+        return personRepository.findById(personId);
     }
 }

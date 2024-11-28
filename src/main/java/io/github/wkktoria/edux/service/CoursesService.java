@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CoursesService {
@@ -38,5 +39,24 @@ public class CoursesService {
     public List<Course> findFirstN(final int n) {
         return coursesRepository.findAll()
                 .stream().limit(n).toList();
+    }
+
+    public boolean saveCourse(final Course course) {
+        boolean isSaved = false;
+        final Course savedCourse = coursesRepository.save(course);
+
+        if (savedCourse != null && savedCourse.getCourseId() > 0) {
+            isSaved = true;
+        }
+
+        return isSaved;
+    }
+
+    public Optional<Course> findCourseWithId(final int courseId) {
+        return coursesRepository.findById(courseId);
+    }
+
+    public void deleteCourse(Course course) {
+        coursesRepository.delete(course);
     }
 }

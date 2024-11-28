@@ -3,10 +3,9 @@ package io.github.wkktoria.edux.controller;
 import io.github.wkktoria.edux.model.Course;
 import io.github.wkktoria.edux.model.EduxClass;
 import io.github.wkktoria.edux.model.Person;
-import io.github.wkktoria.edux.repository.CoursesRepository;
-import io.github.wkktoria.edux.repository.EduxClassRepository;
-import io.github.wkktoria.edux.repository.PersonRepository;
 import io.github.wkktoria.edux.service.CoursesService;
+import io.github.wkktoria.edux.service.EduxClassService;
+import io.github.wkktoria.edux.service.PersonService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +22,22 @@ import java.util.Optional;
 @Controller
 @RequestMapping("admin")
 class AdminController {
-    private final EduxClassRepository eduxClassRepository;
-    private final PersonRepository personRepository;
-    private final CoursesRepository coursesRepository;
+    private final EduxClassService eduxClassService;
+    private final PersonService personService;
     private final CoursesService coursesService;
 
     @Autowired
-    AdminController(final EduxClassRepository eduxClassRepository,
-                    final PersonRepository personRepository,
-                    final CoursesRepository coursesRepository,
+    AdminController(final EduxClassService eduxClassService,
+                    final PersonService personService,
                     final CoursesService coursesService) {
-        this.eduxClassRepository = eduxClassRepository;
-        this.personRepository = personRepository;
-        this.coursesRepository = coursesRepository;
+        this.eduxClassService = eduxClassService;
+        this.personService = personService;
         this.coursesService = coursesService;
     }
 
     @RequestMapping("/displayClasses")
     ModelAndView displayClasses(Model model) {
-        List<EduxClass> eduxClasses = eduxClassRepository.findAll();
+        List<EduxClass> eduxClasses = eduxClassService.findAll();
 
         ModelAndView modelAndView = new ModelAndView("admin/classes");
         modelAndView.addObject("eduxClass", new EduxClass());
@@ -51,19 +47,19 @@ class AdminController {
 
     @RequestMapping("/addNewClass")
     ModelAndView addNewClass(Model model, @ModelAttribute("eduxClass") EduxClass eduxClass) {
-        eduxClassRepository.save(eduxClass);
+        eduxClassService.saveClass(eduxClass);
 
         return new ModelAndView("redirect:/admin/displayClasses");
     }
 
     @RequestMapping("/deleteClass")
     ModelAndView deleteClass(Model model, @RequestParam int id) {
-        Optional<EduxClass> eduxClass = eduxClassRepository.findById(id);
+        Optional<EduxClass> eduxClass = eduxClassService.findClassWithId(id);
         for (Person person : eduxClass.get().getPersons()) {
             person.setEduxClass(null);
-            personRepository.save(person);
+            personService.updatePerson(person);
         }
-        eduxClassRepository.deleteById(id);
+        eduxClassService.deleteClassWithId(id);
 
         return new ModelAndView("redirect:/admin/displayClasses");
     }
@@ -72,7 +68,7 @@ class AdminController {
     ModelAndView displayStudents(Model model, @RequestParam int classId, HttpSession session,
                                  @RequestParam(required = false) String error) {
         ModelAndView modelAndView = new ModelAndView("admin/students");
-        Optional<EduxClass> eduxClass = eduxClassRepository.findById(classId);
+        Optional<EduxClass> eduxClass = eduxClassService.findClassWithId(classId);
         modelAndView.addObject("eduxClass", eduxClass.get());
         modelAndView.addObject("person", new Person());
         session.setAttribute("eduxClass", eduxClass.get());
@@ -90,16 +86,16 @@ class AdminController {
     ModelAndView addStudent(Model model, @ModelAttribute("person") Person person, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         EduxClass eduxClass = (EduxClass) session.getAttribute("eduxClass");
-        Person personEntity = personRepository.readByEmail(person.getEmail());
+        Person personEntity = personService.findPersonWithEmail(person.getEmail());
         if (personEntity == null || !(personEntity.getPersonId() > 0)) {
             modelAndView.setViewName("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId() + "&error=true");
             return modelAndView;
         }
 
         personEntity.setEduxClass(eduxClass);
-        personRepository.save(personEntity);
+        personService.updatePerson(personEntity);
         eduxClass.getPersons().add(personEntity);
-        eduxClassRepository.save(eduxClass);
+        eduxClassService.updateClass(eduxClass);
 
         modelAndView.setViewName("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
         return modelAndView;
@@ -108,10 +104,10 @@ class AdminController {
     @GetMapping("/deleteStudent")
     ModelAndView deleteStudent(Model model, @RequestParam int personId, HttpSession session) {
         EduxClass eduxClass = (EduxClass) session.getAttribute("eduxClass");
-        Optional<Person> person = personRepository.findById(personId);
+        Optional<Person> person = personService.findPersonWithId(personId);
         person.get().setEduxClass(null);
         eduxClass.getPersons().remove(person.get());
-        eduxClassRepository.save(eduxClass);
+        eduxClassService.updateClass(eduxClass);
         session.setAttribute("eduxClass", eduxClass);
 
         return new ModelAndView("redirect:/admin/displayStudents?classId=" + eduxClass.getClassId());
@@ -142,7 +138,7 @@ class AdminController {
     @PostMapping("/addNewCourse")
     ModelAndView addNewStudent(Model model, @ModelAttribute("course") Course course) {
         ModelAndView modelAndView = new ModelAndView();
-        coursesRepository.save(course);
+        coursesService.saveCourse(course);
         modelAndView.setViewName("redirect:/admin/displayCourses/page/1?sortField=name&sortDir=asc");
         return modelAndView;
     }
@@ -152,7 +148,7 @@ class AdminController {
                               HttpSession session,
                               @RequestParam(value = "error", required = false) String error) {
         ModelAndView modelAndView = new ModelAndView("admin/course_students");
-        Optional<Course> course = coursesRepository.findById(id);
+        Optional<Course> course = coursesService.findCourseWithId(id);
         modelAndView.addObject("course", course.get());
         modelAndView.addObject("person", new Person());
         session.setAttribute("course", course.get());
@@ -171,7 +167,7 @@ class AdminController {
                                     HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         Course course = (Course) session.getAttribute("course");
-        Person personEntity = personRepository.readByEmail(person.getEmail());
+        Person personEntity = personService.findPersonWithEmail(person.getEmail());
 
         if (personEntity == null || !(personEntity.getPersonId() > 0)) {
             modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId()
@@ -182,7 +178,7 @@ class AdminController {
         try {
             personEntity.getCourses().add(course);
             course.getPersons().add(personEntity);
-            personRepository.save(personEntity);
+            personService.updatePerson(personEntity);
             session.setAttribute("course", course);
             modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
         } catch (Exception e) {
@@ -197,11 +193,11 @@ class AdminController {
     ModelAndView deleteStudentFromCourse(Model model, @RequestParam final int personId,
                                          HttpSession session) {
         Course course = (Course) session.getAttribute("course");
-        Optional<Person> person = personRepository.findById(personId);
+        Optional<Person> person = personService.findPersonWithId(personId);
         if (person.isPresent()) {
             person.get().getCourses().remove(course);
             course.getPersons().remove(person.get());
-            personRepository.save(person.get());
+            personService.updatePerson(person.get());
         }
         session.setAttribute("course", course);
         return new ModelAndView("redirect:/admin/viewStudents?id=" + course.getCourseId());
@@ -209,14 +205,14 @@ class AdminController {
 
     @GetMapping("/deleteCourse")
     ModelAndView deleteCourse(Model model, @RequestParam final int courseId) {
-        Optional<Course> course = coursesRepository.findById(courseId);
+        Optional<Course> course = coursesService.findCourseWithId(courseId);
         if (course.isPresent()) {
             if (!course.get().getPersons().isEmpty()) {
                 for (Person person : course.get().getPersons()) {
                     person.getCourses().remove(course.get());
                 }
             }
-            coursesRepository.delete(course.get());
+            coursesService.deleteCourse(course.get());
         }
         return new ModelAndView("redirect:/admin/displayCourses/page/1?sortField=name&sortDir=asc");
     }
