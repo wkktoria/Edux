@@ -5,7 +5,7 @@
 Edux is a simple and intuitive Learning Management System (LMS) that makes it easy to manage and deliver online
 learning.
 
-There is [live demo](https://edux-eh0j.onrender.com) available, but it can take a while to load.
+There is [live demo](http://185.201.112.170:8081) available.
 
 ## Build and Run
 
