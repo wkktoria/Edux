@@ -12,8 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 
@@ -65,5 +64,15 @@ class PersonServiceTest {
         boolean result = SUT.createNewPerson(invalidPerson);
 
         assertFalse(result);
+    }
+
+    @Test
+    void test_updatePerson_existentPerson_returnsUpdatedPerson() {
+        person.setName("Updated Name");
+        given(personRepository.save(person)).willReturn(person);
+
+        Person result = SUT.updatePerson(person);
+
+        assertEquals("Updated Name", result.getName());
     }
 }

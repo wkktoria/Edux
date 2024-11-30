@@ -44,8 +44,8 @@ public class PersonService {
         return isSaved;
     }
 
-    public void updatePerson(Person person) {
-        personRepository.save(person);
+    public Person updatePerson(Person person) {
+        return personRepository.save(person);
     }
 
     public Person findPersonWithEmail(final String email) {
