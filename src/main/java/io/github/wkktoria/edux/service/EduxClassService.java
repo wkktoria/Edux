@@ -42,7 +42,7 @@ public class EduxClassService {
         eduxClassRepository.deleteById(classId);
     }
 
-    public void updateClass(EduxClass eduxClass) {
-        eduxClassRepository.save(eduxClass);
+    public EduxClass updateClass(EduxClass eduxClass) {
+        return eduxClassRepository.save(eduxClass);
     }
 }

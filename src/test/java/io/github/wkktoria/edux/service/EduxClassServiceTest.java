@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @ActiveProfiles("test")
@@ -107,5 +108,15 @@ class EduxClassServiceTest {
         boolean result = SUT.saveClass(eduxClass);
 
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void test_updateClass_existentClass_returnsUpdatedEduxClass() {
+        eduxClass.setName("Updated Name");
+        given(eduxClassRepository.save(eduxClass)).willReturn(eduxClass);
+
+        EduxClass result = SUT.updateClass(eduxClass);
+
+        assertEquals("Updated Name", result.getName());
     }
 }
