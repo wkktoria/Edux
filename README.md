@@ -25,11 +25,12 @@ configuration.
     - `PROD_MYSQLDB_DATABASE`
     - `PROD_MYSQLDB_USER`
     - `PROD_MYSQLDB_PASSWORD`
+    - `APP_PORT`
 2. Build Docker image: `docker build -t edux .`.
 
 ### Running
 
-1. Create Docker container: `docker create -p 8081:8081 --env-file .env --name edux edux`.
+1. Create Docker container: `docker create -p <APP_PORT>:<APP_PORT> --env-file .env --name edux edux`.
 2. Start the container: `docker start -ai edux`.
 
-Application should be running on port `8081`.
+Application should be running on configured port.
