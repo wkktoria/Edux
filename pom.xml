@@ -10,9 +10,9 @@
     </parent>
     <groupId>io.github.wkktoria</groupId>
     <artifactId>edux</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Edux</name>
-    <description>Simple learning management system</description>
+    <description>Simple learning management system.</description>
     <properties>
         <java.version>21</java.version>
     </properties>
