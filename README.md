@@ -5,8 +5,6 @@
 Edux is a simple and intuitive Learning Management System (LMS) that makes it easy to manage and deliver online
 learning.
 
-There is [live demo](http://185.201.112.170:8081) available.
-
 ## Build and Run
 
 App can be easily built and run with [Docker](https://www.docker.com), but it requires some kind of environment
